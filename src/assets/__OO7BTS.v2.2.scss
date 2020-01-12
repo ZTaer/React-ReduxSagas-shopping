@@ -1,0 +1,539 @@
+
+/*********** OO7BTS.v2.2 目录 *****/
+/*
+	OO7BTS为SCSS轻量级框架,能够更加灵活操作CSS3,你可以把他了解为短小精悍的小钢炮
+	作者: __OO7__
+	源码链接: https://github.com/ZTaer/OO7GoldModl
+	如果你有更好的想法可以联系我: QQ - 1069798804 ( 加好友时记得留言scssUser )
+	
+	0. 防出错类
+	1.	flex函数类
+		1-0. 开启弹性布局,有兼容性: display-flex( [flex-direction] )
+		1-1. 单行flex布局，含兼容性: xy-items( justify-content, align-items, [flex-wrap] );
+		1-2. 多行flex布局，含兼容性: xy-content( justify-content, align-items, align-content, [flex-wrap] )
+	2. 颜色类
+		2-0. 快捷创建背景渐变色( 只能用于背景颜色的改变 ): bg-linear( 渐变左颜色, 渐变右颜色, 渐变开始方向, 渐变结束方向  )
+			2-0-0. 推荐渐变颜色: bg-linear-xxx();
+		2-1. 修改placeholder颜色: placeholder-color( 字体大小, 字体颜色, 字间距 )
+		2-2. 修改字体选中颜色: choose-text-color( 字体颜色,背景颜色 )
+	3. 字体类
+		3-0. 快捷设置字体格式: font-style( 字体大小, 字体颜色, 字体宽度, 字间距 )
+		3-1. 字体不换行且文本溢出时显示省略标记(...): font-nowrap();
+		3-2. 字体自动换行文本溢出时显示省略标记(...): font-wrap(); // 暂时维护
+		3-3. 常用中文字体以及图片排版,图片为自适应,支持电脑/移动端: font-zh( 字体大小, 字体颜色, 字体行高, 字体间距  ) ps: 使用默认值即可 ;
+		3-4. 固定范围显示字体: font-hidden( 显示宽度 , 显示高度 );
+	4. 布局类
+		4-0. 根据宽度"等比例缩放"大小高度: img-autosize( 原始图片宽度,原始图片高度,容器宽度,容器单位 );
+		4-1. 设置主要内容区域,留出二边间隔,默认0/1200/1920大小为中间内容: div-content( 上下内间大小,书写主要内容区域大小,占用真实空间大小 );
+		4-2. 图片不变形显示,防止在后台因放不同尺寸图片，造成前台因图片尺寸不同造成的布局变形,默认图片位置为center: img-window( 图片宽度,图片高度,图片x方向位置,图片y方向位置 );
+		4-3. pc端翻页样式,只适合页面数小于10页,并且要求ul结构为 ul -> li -> a: ul-fanye-pc( 按钮边框设置, 按钮外间距, 按钮内间距, 按钮背景颜色, 按钮字体颜色 );
+	5. 动画类
+		5-0. 图片放大/缩小动画过度效果,注意二者函数配合才能实现放大动画效果，但是img-transition也可以单独使用,配合hover效果( 考虑到灵活性 ): img-transition( 动画时间 ); img-transform-scale( 放大倍数 ); 
+		5-1. 自适应背景视频，与backgroundVideoInit()配合: background-video-init( 背景图片路径 ); - 简便方法,css中直接写在父类下,HTML要写入对应的class类名
+	6.	辅助类
+		6-0. 以辅助其它第三方库
+		6-1. 灯箱效果-改变灯箱中字体样式: @include help-lightbox-font( 字体大小,颜色,字间距,字体宽度 );
+		6-2. 滑动动画-改变按钮位置以及样式 0. 改变二个按钮之间的位置: help-slick-btn-pos( 设定大于x分辨率生效, 左按钮位置, 右按钮位置, 显示层阶 ) 1. 改变按钮二个默认样式: help-slick-btn-style( 按钮大小, 按钮颜色, 按钮粗度 ) 2. 隐藏按钮开关: help-slick-btn-hidden( 左按钮显示开关, 右按钮显示开关 ) hidden开启隐藏
+	7.	其他类
+	
+*/
+
+// 0. 防出错类-BGN
+ol,ul,li{
+	list-style:none;
+}
+
+a{
+	&:hover{
+		text-decoration:none;
+	}
+}
+
+// 0. 防出错类-END
+
+// 1. flex函数类-BGN
+	// 1-0. 开启弹性布局,有兼容性
+	//	用法:
+	//		display-flex( [flex-direction] )
+	@mixin display-flex( $direction1:row ){
+			display:flex ;
+			display:-webkit-flex ;
+			
+			flex-direction:$direction1 !important;
+			-webkit-flex-direction:$direction1 !important;
+	}
+	
+	// 1-1. 单行flex布局，含兼容性
+	//	用法:
+	//		xy-items( justify-content, align-items, [flex-wrap] );
+	@mixin xy-items( $x, $y, $nowrap:nowrap ){
+		justify-content:$x !important;
+		-webkit-justify-content:$x !important;
+		
+		align-items:$y !important;
+		-webkit-align-items:$y !important;
+		
+		flex-wrap:$nowrap !important;
+		-webkit-flex-wrap:$nowrap !important;
+	}
+	
+	// 1-2. 多行flex布局，含兼容性
+	// 用法:
+	//		xy_content( justify-content, align-items, align-content, [flex-wrap] )
+	@mixin xy-content( $xx, $yy, $wrap:wrap ){
+		justify-content:$xx !important;
+		-webkit-justify-content:$xx !important;
+		
+		align-content:$yy !important;
+		-webkit-align-content:$yy !important;
+		
+		flex-wrap:$wrap !important;
+		-webkit-flex-wrap:$wrap !important;
+		
+	}
+
+// 1. flex函数类-END
+
+// 2. 颜色类-BGN
+
+	// 2-0. 快捷创建背景渐变色( 只能用于背景颜色的改变 )
+	// 用法:
+	//		bg-linear( 渐变左颜色, 渐变右颜色, 渐变开始方向, 渐变结束方向  )
+	// 例:
+    // 		bg-linear( #93F9B9, #1D976C, right );
+    // 		bg-linear( #93F9B9, #1D976C, right, bottom );
+	@mixin bg-linear( $cl:#93F9B9, $cr:#1D976C, $x:right, $y:null ) {
+		background: $cr; 
+		background: -webkit-linear-gradient(to $x $y, $cl, $cr);  
+		background: linear-gradient(to $x $y, $cl, $cr); 
+	}
+	
+	// 2-0-0. 推荐色:
+	@mixin bg-linear-yellow {
+		@include bg-linear( #FBDB89,#F48982,right,bottom );
+	}
+	@mixin bg-linear-green {
+		@include bg-linear( #93F9B9,#1D976C,right,bottom );
+	}
+	@mixin bg-linear-dark {
+		@include bg-linear( #414345,#232526,right,bottom );
+	}
+	@mixin bg-linear-pink {
+		@include bg-linear( #EF629F,#EECDA3,right );
+	}
+
+	// 2-1. 修改placeholder颜色
+	// 用法:
+	//		placeholder-color( 字体大小, 字体颜色, 字间距 )
+	@mixin placeholder-color( $fs:15px, $c:#696969, $ls:3px ){
+
+		input::-webkit-input-placeholder{
+			font-size: $fs;
+			color:$c;
+			letter-spacing: $ls;
+        }
+        input::-moz-placeholder{   /* Mozilla Firefox 19+ */
+			font-size: $fs;
+			color:$c;
+			letter-spacing: $ls;
+        }
+        input:-moz-placeholder{    /* Mozilla Firefox 4 to 18 */
+			font-size: $fs;
+			color:$c;
+			letter-spacing: $ls;
+        }
+        input:-ms-input-placeholder{  /* Internet Explorer 10-11 */ 
+			font-size: $fs;
+			color:$c;
+			letter-spacing: $ls;
+		}
+		
+        textarea::-webkit-input-placeholder{
+			font-size: $fs;
+			color:$c;
+			letter-spacing: $ls;
+        }
+        textarea::-moz-placeholder{   /* Mozilla Firefox 19+ */
+			font-size: $fs;
+			color:$c;
+			letter-spacing: $ls;
+        }
+        textarea:-moz-placeholder{    /* Mozilla Firefox 4 to 18 */
+			font-size: $fs;
+			color:$c;
+			letter-spacing: $ls;
+        }
+        textarea:-ms-input-placeholder{  /* Internet Explorer 10-11 */ 
+			font-size: $fs;
+			color:$c;
+			letter-spacing: $ls;
+        }
+	}
+
+	// 2-2. 修改字体选中颜色
+	// 用法:
+	//		choose-text-color( 字体颜色,背景颜色 )
+	@mixin choose-text-color( $c:#f8f8f8,$bg:#F48982 ) {
+		::selection {
+			background:$bg; 
+			color:$c;
+		}
+		::-moz-selection {
+			background:$bg; 
+			color:$c;
+		}
+		::-webkit-selection {
+			background:$bg; 
+			color:$c;
+		}
+	}
+
+// 2. 颜色类-END
+
+// 3. 字体类-BGN
+
+	// 3-0. 快捷设置字体格式
+	// 用法:
+	//		font-style( 字体大小, 字体颜色, 字体宽度, 字间距 )
+	//		变量名称为语法的缩写,方便调入修改参数
+	//      @include font-style( 15px, #555, bold,  5 );
+	@mixin font-style( $fs:15px, $c:#696969, $fw:normal, $ls:3px){
+		font-size:$fs;
+		color: $c;
+		font-weight: $fw;
+		letter-spacing: $ls;
+	}
+	
+
+	
+	// 3-1. 字体不换行且文本溢出时显示省略标记(...)
+	// 用法:
+	//		font-nowrap(  )
+	//      @include font-nowrap(  );
+	@mixin font-nowrap( ){
+			display:block;	//内联对象需加
+            word-break:keep-all; 	//不换行
+            white-space:nowrap; 	//不换行
+            overflow:hidden; 	 // 内容超出宽度时隐藏超出部分的内容
+            text-overflow:ellipsis;   //当对象内文本溢出时显示省略标记(...) ,需与overflow:hidden;一起使用.
+	}
+	
+	// 3-2. 字体自动换行文本溢出时显示省略标记(...) // 暂时维护
+	// 用法:
+	//		font-wrap(  )
+	//      @include font-wrap(  );
+	@mixin font-wrap( ){
+			display:block;	//内联对象需加
+			word-break:break-all; // 自动换行
+			
+            overflow:hidden; 	 // 内容超出宽度时隐藏超出部分的内容
+            text-overflow:ellipsis;   //当对象内文本溢出时显示省略标记(...) ,需与overflow:hidden;一起使用.
+	}
+
+	// 3-3. 常用中文字体以及图片排版,图片为自适应,支持电脑/移动端
+	//	用法:
+	//		font-zh( 字体大小, 字体颜色, 字体行高, 字体间距 );
+	// 		@include font-zh( 使用默认值即可 );
+	@mixin font-zh( $fz:15px, $c:#696969, $lh:30px, $ls:3px ){
+		text-indent: 2em;
+        font-family: '微软雅黑';
+        font-size: $fz;
+        letter-spacing: $ls;
+        line-height: $lh;
+		overflow: hidden;
+		color: $c;
+        img{
+            display: block !important;
+			max-width:100% !important;
+			height:auto !important;
+            margin:1rem auto ;
+        }
+        @media( max-width:765px ){
+            letter-spacing: $ls + 1px;
+            line-height: $lh - 2px;
+		}	
+	}
+
+	// 3-4. 固定范围显示字体
+	//	用法:
+	// 		font-hidden( 显示宽度 , 显示高度 );
+	//  实例:
+	// 		@include font-hidden( 100%,  150px );
+	@mixin font-hidden( $w, $h ){
+		width:$w;
+		height:$h;
+		overflow: hidden;
+	}
+
+// 3. 字体类-END
+
+
+
+// 4. 布局类-BGN
+	
+	// 4-0. 根据宽度"等比例缩放"大小高度
+	//	用法:
+	//		img-autosize( 原始图片宽度,原始图片高度,容器宽度,容器单位 );
+	@mixin img-autosize( $imgW, $imgH, $viewWidth:100, $viewUnit:"%"  ){
+
+		width:$viewWidth + unquote($viewUnit);
+		height:calc( #{$viewWidth}#{unquote("vw")} / #{$imgW} * #{$imgH} );
+		display:block;
+		background-size: cover;
+
+	}
+	
+	// 4-1. 设置主要内容区域,留出二边间隔,默认1200/1920大小为中间内容
+	//	用法:
+	//		div-content( 上下内间大小,距书写主要内容区域大小,占用真实空间大小 );
+	@mixin div-content( $tb_padding:0, $div_w:1200, $screen_w:1920  ){
+		$rl_padding:( 100 - ( $div_w / $screen_w ) * 100 ) / 2;
+		width:( 100 - $rl_padding * 2 ) + unquote("%") ;
+		padding: $tb_padding + unquote("px")  $rl_padding + unquote("%"); // $a + unquote("%") 设置单位( 删除字符串中的引号 )
+	}
+	
+	// 4-2. 图片不变形显示,防止在后台因放不同尺寸图片，造成前台因图片尺寸不同造成的布局变形
+	//	用法:
+	//		img-window( 图片宽度,图片高度,图片x方向位置,图片y方向位置 );
+	@mixin img-window( $img_w, $img_h, $img_wh:110%, $x: center, $y: center ){
+		width: $img_w;
+		max-height: $img_h;
+		overflow: hidden;
+		display: block;
+		@include display-flex();
+		@include xy-items( $x, $y );
+		img{
+			width:$img_wh;
+			height: auto;
+			@include img-transition(0.3);
+		}
+	}
+
+	// 4-3. pc端翻页样式,只适合页面数小于10页,并且要求ul结构为 ul -> li -> a
+	//	用法:
+	//		ul-fanye-pc( 按钮边框设置, 按钮外间距, 按钮内间距, 按钮背景颜色, 按钮字体颜色 );
+	@mixin ul-fanye-pc( $border:"1px solid #c9c9c9", $btn_m:5px, $btn_p:10px, $btn_bg:#f8f8f8,  $c:#444c6b ){
+		@include display-flex();
+		@include xy-items(center,center);
+		margin:15px auto;
+		cursor:pointer;
+		text-indent: 0;
+		width:100%;
+		padding:0px;
+
+		li{
+			margin:$btn_m;
+			a{
+				color: $c;
+				padding:$btn_p;
+				border: unquote( $border );
+				background: $btn_bg;
+
+				transition:all 0.3s linear;
+				-moz-transition: all 0.3s linear;
+				-webkit-transition: all 0.3s linear;
+	
+				&:hover{
+					background: $c;
+					border-color: $c;
+					color: $btn_bg;
+					text-decoration: none;
+				}
+			}
+		}
+	}
+
+// 4. 布局类-END
+// 5. 动画类-BGN
+	// 5-0. 图片放大/缩小动画过度效果,注意二者函数配合才能实现放大动画效果，但是img-transition也可以单独使用,配合hover效果( 考虑到灵活性 )
+	//	用法:
+	//		img-transition( 动画时间 );
+	//      img-transform-scale( 放大倍数 );
+	//  实例:
+	//		img{ @include img-transition( 0.3 ); }
+	//		&:hover img{ @include img-transform-scale( 1.1 ); }
+
+	@mixin img-transition( $times ){
+		$times: $times + unquote("s");
+		transition:all $times linear;
+		-moz-transition: all $times linear;
+		-webkit-transition: all $times linear;
+	}
+
+	@mixin img-transform-scale( $size_num ){
+		-webkit-transform: scale($size_num,$size_num);
+		-moz-transform: scale($size_num,$size_num);
+		transform: scale($size_num,$size_num);
+	}
+
+	// 5-1. 自适应背景视频，与oo7.backgroundVideo()配合
+	//	用法:
+	//    方法一:
+	//		background-video-father(); - 使用在video标签父类容器
+	//      background-video-tab( 图片absolute的x位置, 图片absolute的y位置, 相对位置x, 相对位置y ); - 使用在video标签
+	//		background-video-img( 背景图片路径 ); - 使用在子类div标签
+	//      background-video-container(); - 使用在子类div标签
+	//	  方法二:
+    //      background-video-init( 背景图片路径 ); - 简便方法,在CSS中直接写在父类下,HTML要写入对应的class类名
+	//  实例:
+	//		HTML:
+	//			<div id="test" >
+	// 				<video id="background-video-tab" loop muted></video>
+	//   			<div class="background-video-img"></div>
+	//   			<div class="background-video-container"></div>
+	//      	</div>
+	// 		CSS:
+	// 			#test{ 
+    // 				方法二
+	//				@include background-video-init( 'test.jpg' );
+	//			}
+	//      js:
+	//			let bv;
+ 	//			oo7.backgroundVideo(bv,'#test',['网页视频路径','本地视频路径'],'.background-video-tab','.background-video-img',0);
+	// 			解析: oo7.backgroundVideo( 变量名称, 'css父类容器名',['网页视频路径','本地视频路径'],'标签video类名','视频缓冲图片路径','达到指定分辨率时禁止播放-默认为768px' );
+
+	@mixin background-video-father(){
+		overflow: hidden;
+		position: relative;
+		left: 0; 
+		right: 0;
+	}
+
+	@mixin background-video-tab( $topX:50%, $topY:50%, $relativeX:-50%, $relativeY:-50% ){
+		// 为剧中
+		position: absolute;
+		top: $topX; 
+		left: $topY;
+
+		transform: translate($relativeX, $relativeY);
+		-ms-transform: translate($relativeX, $relativeY); /* IE 9 */
+		-webkit-transform: translate($relativeX, $relativeY); /* Safari and Chrome */
+		
+		object-fit: cover;
+		height: 100%; width: 100%;
+	}
+
+	@mixin background-video-img($imgSrc){
+		position: absolute;
+
+		width: 100%; height: 100%;
+
+		background: url( "#{$imgSrc}" ) no-repeat;
+		background-size: cover;
+		background-position: center;
+	}
+
+	@mixin background-video-container() {
+		position: absolute;
+		top: 0; right: 0; left: 0; bottom: 0;
+	}
+	
+	// 便捷式使用方式
+	@mixin background-video-init( $imgSrc ){
+		overflow: hidden;
+		position: relative;
+		left: 0; 
+		right: 0; 
+
+		.background-video-tab{
+			// 为剧中
+			position: absolute;
+			top: 50%; 
+			left: 50%;
+	
+			transform: translate(-50%, -50%);
+			-ms-transform: translate(-50%, -50%); /* IE 9 */
+			-webkit-transform: translate(-50%, -50%); /* Safari and Chrome */
+			
+			object-fit: cover;
+			height: 100%; width: 100%;
+		}
+
+		.background-video-img{
+			position: absolute;
+	
+			width: 100%; height: 100%;
+	
+			background: url( "#{$imgSrc}" ) no-repeat;
+			background-size: cover;
+			background-position: center;
+		}
+
+		.background-video-container{
+			position: absolute;
+			top: 0; right: 0; left: 0; bottom: 0;
+		}
+
+	}
+
+// 5. 动画类-END
+
+// 6. 辅助类-BGN
+	// 6-1. 灯箱效果-改变灯箱中字体样式
+	//  配合:
+	//  	效果查询: http://ashleydw.github.io/lightbox/
+	//		CDN: <link rel="stylesheet" href="https://cdn.staticfile.org/ekko-lightbox/5.3.0/ekko-lightbox.css" integrity="sha256-HAaDW5o2+LelybUhfuk0Zh2Vdk8Y2W2UeKmbaXhalfA=" crossorigin="anonymous" />
+	//	用法:
+	//		@include help-lightbox-font( 字体大小,颜色,字间距,字体宽度 );
+	//  实例:
+	//		@include help-lightbox-font( 15px,#696969,5px,lighter );
+	@mixin help-lightbox-font( $fz:1.1rem, $c:#333, $ls:3px, $fw:bold ){
+		.modal-header{
+			.modal-title{
+				font-size: $fz !important;
+				color:$c !important;
+				letter-spacing: $ls !important;
+				font-weight: $fw !important;
+			}
+	
+		}
+
+	}
+
+	// 6-2. 滑动动画-改变按钮位置以及样式
+	//  配合:
+	//  	icon查询: https://fontawesome.com/icons?d=gallery
+	//		CDN: <link rel="stylesheet" href="https://cdn.staticfile.org/font-awesome/5.6.3/css/all.min.css" >
+	//	用法:
+	//		1. 改变二个按钮之间的位置: help-slick-btn-pos( 设定大于x分辨率生效, 左按钮位置, 右按钮位置, 显示层阶 )
+	// 		2. 改变按钮二个默认样式: mixin help-slick-btn-style( 按钮大小, 按钮颜色, 按钮粗度 )
+	// 		3. 隐藏按钮开关: help-slick-btn-hidden( 左按钮显示开关, 右按钮显示开关 ) hidden开启隐藏
+	//  实例:
+	//		 @include help-slick-btn-style(); // 设定按钮样式 
+	// 		 @include help-slick-btn-pos( 765px,-2.3rem,-1.8rem ); // 大于765px分辨率时，起作用
+	//       @include help-slick-btn-hidden( hidden ); // 只隐藏左边按钮
+	@mixin help-slick-btn-pos( $sm:756px, $l:-2.3rem, $r:0, $z:999 ) {
+		@media( min-width:$sm ) {
+			.slick-next,.slick-prev{
+				z-index:$z;
+			}
+			.slick-prev{
+				left:$l;
+			}
+			.slick-next{
+				right:$r;
+			}
+		}
+	}
+
+	@mixin help-slick-btn-style( $fz:1.7rem, $c:#dc3545, $fw:normal ) {
+		.slick-prev:before, .slick-next:before{
+			font-size: $fz !important;
+			color: $c !important;
+			font-weight: $fw !important;
+		}
+	}
+
+	@mixin help-slick-btn-hidden( $l:visible, $r:visible ) {
+		.slick-prev:before{
+			visibility: $l;
+		}
+		.slick-next:before{
+			visibility: $r;
+		}
+	}
+
+// 6. 辅助类-END
+
+// 7. 其他类-BGN
+// 7. 其他类-END

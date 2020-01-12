@@ -1,0 +1,36 @@
+.header {
+  height: 70px;
+  width: 95%;
+  margin:0px auto;
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 25px;
+  font-family: 'Open Sans Condensed';
+
+  .logo-container {
+    height: 100%;
+    width: 70px;
+    padding: 25px;
+  }
+
+  .options {
+    width: 50%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    cursor: pointer;
+
+    .option {
+      padding: 10px 15px;
+    }
+  }
+
+  a{
+    letter-spacing: 3px;
+    &:hover{
+      color:#ccc;
+    }
+  }
+
+}

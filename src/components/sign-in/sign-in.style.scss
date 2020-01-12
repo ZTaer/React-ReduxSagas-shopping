@@ -1,0 +1,26 @@
+.sign-in{
+    width:25vw;
+    display: flex;
+    flex-direction: column;
+
+    .title{
+        margin:10px 0;
+    }
+
+    .btn-sign{
+        display: flex;
+        justify-content: space-around;
+        .sign-width{
+            width:190px;
+        }
+        .google-btn-color{
+            $c:#4284f3;
+            background: $c;
+            border:1px solid $c;
+            &:hover{
+                background: #fff;
+                color:$c;
+            }
+        }
+    }
+}

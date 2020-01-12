@@ -1,0 +1,63 @@
+@import "../../assets/_OO7BTS.v2.2";
+
+.collection-item {
+  width: 21vw;
+  display: flex;
+  flex-direction: column;
+  height: 525px;
+  @media ( max-width:1400px ) {
+    height:400px;
+  }
+  align-items: center;
+
+  .image {
+    width: 100%;
+    height: 95%;
+    background-size: cover;
+    background-position: center;
+    margin-bottom: 5px;
+
+    @include display-flex();
+    @include xy-items(center,flex-end);
+  }
+
+  .collection-footer {
+    width: 100%;
+    height: 5%;
+    display: flex;
+    justify-content: space-between;
+    font-size: 18px;
+
+    .name {
+      width: 90%;
+      margin-bottom: 15px;
+    }
+
+    .price {
+      width: 10%;
+    }
+  }
+
+  @include img-transition(0.3);
+  &:hover{
+    opacity: 0.8;
+
+    .collection-item-btn{
+      display: block;
+    }
+  }  
+}
+
+.collection-item-btn{
+  width:75%;
+  margin-bottom:1rem;
+  display: none;
+  &:hover{
+    background: rgba(255,255,255,0.6);
+  }
+  &:active{
+    @include img-transition(0.1);
+    background: red;  
+    color:#fff;
+  }
+}
