@@ -14,7 +14,15 @@ import rootReducer from './root-reducer';
 
 // 中间件: 因为中间件后期要添加很多,所以需要解构符来配合
 
-const middlewares = [ logger ];
+const middlewares = [];
+
+// process.end.NODE_ENV可以确定当前项目是否为生产环境( 等待笔记 )
+    // 0. process.env.NODE_ENV === 'development': 为开发环境
+    // 1. process.env.NODE_ENV === 'production': 为生产环境
+if( process.env.NODE_ENV === 'development' ){
+    middlewares.push(logger);
+}
+
 const store = createStore( rootReducer, applyMiddleware(...middlewares) );
 
 // redux-persist的store配置( 完成笔记 )
