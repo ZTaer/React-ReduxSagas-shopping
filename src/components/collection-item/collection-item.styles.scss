@@ -49,15 +49,14 @@
 }
 
 .collection-item-btn{
-  width:75%;
+  width:75% !important;
   margin-bottom:1rem;
   display: none;
   &:hover{
-    background: rgba(255,255,255,0.6);
+    background: rgba(255,255,255,0.6) !important;
   }
   &:active{
-    @include img-transition(0.1);
-    background: red;  
-    color:#fff;
+    background: red !important;
+    color:#fff ;
   }
 }

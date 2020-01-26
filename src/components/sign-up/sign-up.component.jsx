@@ -2,7 +2,7 @@ import React from 'react';
 import "./sign-up.style.scss";
 
 import FormInput from '../form-input/form-input.component';
-import CustomButton from '../custom-button/custom-button.component';
+import CustomButtonExp from '../custom-button-exp/custom-button-exp.component';
 import { auth, createUserProfileDocument } from '../../firebase/firebase.config';
 import { withRouter } from 'react-router-dom';
 
@@ -97,12 +97,12 @@ class SignUp extends React.Component {
                     value={this.state.confirmPassword}
                     required
                 />
-                <CustomButton 
+                <CustomButtonExp 
                 type="submit"
-                selfCss={`sign-width`} 
+                isSignWidthStyles
                 >
                     提交
-                </CustomButton>
+                </CustomButtonExp>
             </form> 
             </div>
         );

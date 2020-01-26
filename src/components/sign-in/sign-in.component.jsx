@@ -2,7 +2,7 @@ import React from "react";
 import "./sign-in.style.scss";
 
 import FormInput from "../form-input/form-input.component";
-import CustomButton from "../custom-button/custom-button.component";
+import CustomButtonExp from "../custom-button-exp/custom-button-exp.component";
 import { signInWithGoogle, auth } from "../../firebase/firebase.config";
 
 class SignIn extends React.Component {
@@ -83,12 +83,12 @@ class SignIn extends React.Component {
                         value={this.state.password} required  
                     />
                     <div className="btn-sign">
-                        <CustomButton selfCss={`sign-width`} type="submit" >
+                        <CustomButtonExp isSignWidthStyles type="submit" >
                             登陆
-                        </CustomButton>
-                        <CustomButton selfCss={`sign-width google-btn-color`}  onClick={ signInWithGoogle } >
+                        </CustomButtonExp>
+                        <CustomButtonExp isGoogleStyles onClick={ signInWithGoogle } >
                             Google登陆
-                        </CustomButton>
+                        </CustomButtonExp>
                     </div>
                 </form>
             </div>

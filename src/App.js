@@ -6,8 +6,9 @@ import HomePage from './pages/homepage/homepage.component';
 import ShopPage from './pages/shoppage/shoppage.component';
 import SignPage from './pages/signpage/signpage.component';
 import CheckoutPage from './pages/checkout/checkout.component';
+import TelPage from './pages/telpage/telpage.component';
 
-import { auth, createUserProfileDocument } from './firebase/firebase.config';
+import { auth, createUserProfileDocument, addCollectionAndDocuments } from './firebase/firebase.config';
 
 import { connect } from 'react-redux';
 import { setCurrentUser } from './redux/user/user.actions';
@@ -15,8 +16,10 @@ import { setCurrentUser } from './redux/user/user.actions';
 import { createStructuredSelector } from 'reselect';
 import { selectUserCurrentUser } from './redux/user/user.selectors';
 
+// 测试( 等待删除 )
+import { selectCollectionShopArray } from './redux/shop/shop.selectors';
+
 // 测试路由 - 2
-const TelPage = props => ( <div> <h2 className="display-2" > { props.match.params.proName }: 等待建设页面 </h2></div> );
 // 在Switch标签外不受路由影响 - 无论页面如何变化,组件依然显示存在( 完成笔记 ) 
     // 0. 把导航栏放在switch之外，这样导航栏将一直存在。不会受路由的控制 
     // 1. 这是一个非常非常重要的功能 - 不受页面刷新影响方法
@@ -27,16 +30,15 @@ class App extends React.Component {
   
   // 获取登陆用户信息( 完成笔记 )
   componentDidMount(){
-    const { setCurrentUser } = this.props;
+    const { setCurrentUser, collectionsArray } = this.props;
 
     this.unsubscribeFromAuth = auth.onAuthStateChanged( async user => {
-
       // 如果用户登陆
       if( user ){
-        // firebase-onSnapshot()监听文档对象(快照对象)方便数据更新(  完成笔记)
+        // firebase-onSnapshot()监听文档对象(快照对象)方便数据更新( 完成笔记 )
           // 0. onSnapshot(props=>{xx}) 用于监听快照对象,如果数据发生变化,方便数据变化时实时更新
           // 1. props用于传递快照对象的数据,于监听快照对象无疑
-        const userRef = await createUserProfileDocument( user ); // React什么周期组件内,可以使用await等待异步数据(  完成笔记)
+        const userRef = await createUserProfileDocument( user ); // React什么周期组件内,可以使用await等待异步数据( 完成笔记 )
         userRef.onSnapshot( props => {
           setCurrentUser({
             id: props.id,
@@ -44,10 +46,15 @@ class App extends React.Component {
           });
         } );
       }
-
       // 注意:此乃谷歌原始配置信息
       setCurrentUser( user );
+
+      // 应用: firebase添加数据( 完成笔记 )
+        // 0. 取出指定数据title和items: collectionsArray.map( ({ title, items })=>({ title, items }) );
+      // addCollectionAndDocuments( 'collections', collectionsArray.map( ({title, items})=>({title, items}) ) );
     } );
+
+
   }
 
   // 卸载组件时,退出登陆( 完成笔记 )
@@ -189,6 +196,7 @@ function App() {
 */
 const mapStateToProps = createStructuredSelector ({
   currentUser: selectUserCurrentUser,
+  collectionsArray: selectCollectionShopArray,
 });
 
 const mapDispatchToProps = dispatch => ({

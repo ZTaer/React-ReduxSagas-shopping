@@ -16,7 +16,7 @@ import rootReducer from './root-reducer';
 
 const middlewares = [];
 
-// process.end.NODE_ENV可以确定当前项目是否为生产环境( 等待笔记 )
+// process.end.NODE_ENV可以确定当前项目是否为生产环境( 完成笔记 )
     // 0. process.env.NODE_ENV === 'development': 为开发环境
     // 1. process.env.NODE_ENV === 'production': 为生产环境
 if( process.env.NODE_ENV === 'development' ){

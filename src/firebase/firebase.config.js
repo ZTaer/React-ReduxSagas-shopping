@@ -84,6 +84,13 @@ export const createUserProfileDocument = async ( userAuth, additionalData ) =>{
         const userRef = await firestore.doc(`/users/${userAuth.uid}`);
         const snapShot = await userRef.get();
 
+        // firestore测试ref对象的数据获取( 完成笔记 )
+        /*
+        const collectionRef = await firestore.collection(`/users`);
+        const collectionSnapshot = await collectionRef.get();
+        console.log( 'test',collectionSnapshot.docs.map( doc => doc.data() ) ); // 注意.docs为数组,不能直接data()处理, 需迭代出内容
+        */
+
         if( !snapShot.exists ){
             const { displayName, email, photoURL  } = userAuth;
             const createTime = new Date(); // 获取当前时间( 完成笔记 )
@@ -105,3 +112,44 @@ export const createUserProfileDocument = async ( userAuth, additionalData ) =>{
         }
         return userRef; // 传递获取的用户信息方便进行其它操作
 };
+
+// 构建: firebase添加数据,使用firestore.batch批处理传送( 完成笔记 )
+    // a) 只所以使用batch来传输数据, 是为了保证传输数据的完整性, 因数据传输时会分批传输, 若有一方失败, 则否定全部数据传输失败, 保证传输成功的数据完整性, 可控性.
+    // b) 获取batch函数: const batch = firestore.batch()
+    // c) 设定待传送的数据: batch.set( 空文档, 传送数据 );
+    // d) 上传数据: batch.commit()
+    // f) 注意: 异步上传数据
+export const addCollectionAndDocuments = async ( collectionKey, objectsToAdd ) => {
+    const collectionRef = firestore.collection( collectionKey );
+    const batch = firestore.batch();
+    objectsToAdd.forEach( obj => {
+        const newDocRef = collectionRef.doc(); //  获取空文档
+        batch.set( newDocRef, obj );
+    } );
+    return await batch.commit();
+
+};
+
+// 获取商品数据从firebase( 完成笔记 )
+    // 0. 在这里加工处理商品数据
+    // 1. encodeURI( 字符串 ); 将字符串转换为URL编码, 方便浏览器处理
+export const convertCollectionsSnapshotToMap = collections => {
+    const transfromedCollection = collections.docs.map( doc => {
+        const { title, items } = doc.data();
+        return {
+            routeName: encodeURI( title.toLowerCase() ),
+            id: doc.id,
+            title,
+            items,
+        }
+    } )
+
+    // reduce骚操作构建对象类型数据( 完成笔记 )
+        // 0. 核心: { [key]: value }: 将变量变为对象的键值
+        // 1. reduce()不仅可以计算统计数字,也可以用于构建数据
+    return transfromedCollection.reduce( ( total, cur )=>{
+        total[ cur.title.toLowerCase() ] = cur;
+        return total;
+    },{} );
+
+}

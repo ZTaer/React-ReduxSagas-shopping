@@ -11,9 +11,10 @@ const CollectionOverview  = ({ collectionShop }) => {
     return(
         <div className="collection-overview">
             {
-                collectionShop.map( ( {id,...otherProps} )=>(
+                collectionShop ? collectionShop.map( ( {id,...otherProps} )=>(
                     <CollectionView key={id} {...otherProps} /> 
-                ) )
+                ) ) :
+                null
             }
         </div>
     );

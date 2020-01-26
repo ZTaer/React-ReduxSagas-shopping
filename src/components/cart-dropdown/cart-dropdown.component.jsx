@@ -5,7 +5,7 @@ import "./cart-dropdown.styles.scss";
 import { createStructuredSelector } from 'reselect';
 import { selectCartItems } from '../../redux/cart/cart.selectors';
 
-import CustomButton from '../custom-button/custom-button.component';
+import CustomButtonExp from '../custom-button-exp/custom-button-exp.component';
 import CartItem from '../cart-item/cart-item.component';
 
 import { withRouter } from 'react-router-dom';
@@ -26,16 +26,15 @@ const CartDropdown = ({ cartItems, history, dispatch }) => {
                     (<span className="cart-items-alt" >你购物车是空的!</span>)
                 }
             </div>
-            <CustomButton 
+            <CustomButtonExp 
             onClick={ ()=>{
                 dispatch(toggleCartHidden());
                 history.push('/checkout');
             } } 
-            selfCss={
-                'cart-dropdown-btn'
-            } >
+            isCartDropdownBtnStyles
+            >
                 结算
-            </CustomButton>
+            </CustomButtonExp>
         </div>
     );
 }

@@ -1,6 +1,6 @@
 import React from 'react';
-import "./header.styles.scss";
-import { Link } from "react-router-dom";
+import { HeaderDiv, LogoContainer, OptionsDiv, OptionLink } from './header.styles';
+
 import {auth} from "../../firebase/firebase.config";
 
 import { createStructuredSelector } from 'reselect';
@@ -32,38 +32,41 @@ class Header extends React.Component {
     render(){
         const {currentUser, hidden} = this.props;
         return(
-            <div className="header">
+            <HeaderDiv>
 
                 <CustomModal/>
 
-                <Link className="logo-container" to="/" >
+                <LogoContainer  to="/" >
                     <Logo className="logo" />
-                </Link>
-                <div className="options">
-                    <Link className="option" to="/" >
+                </LogoContainer>
+                <OptionsDiv>
+                    <OptionLink to="/" >
                         主页
-                    </Link> 
-                    <Link className="option" to="/shop" >
+                    </OptionLink> 
+                    <OptionLink to="/shop" >
                         产品
-                    </Link>
-                    <Link className="option" to="/tel" >
+                    </OptionLink>
+                    <OptionLink to="/tel" >
                         联系
-                    </Link>
+                    </OptionLink>
                     {
                         currentUser 
                         ? 
-                        ( <div className="option" onClick={ ()=>auth.signOut() } >退出</div> ) // 用户退出登陆( 完成笔记 )
+                        // styled-components使用as可进行标签类型转换( 完成笔记 )
+                            // a) 使用方式: <Xxxx as={'div'} ><Xxxx/> --> <div></div>
+                            // b) as可以将组件转换为自定义标签,也可以转换为默认HMTL标签
+                        ( <OptionLink as='div' to='' onClick={ ()=>auth.signOut() } >退出</OptionLink> ) // 用户退出登陆( 完成笔记 )
                         : 
-                        ( <Link className="option" to="/sign" >注册/登陆</Link> )
+                        ( <OptionLink className="option" to="/sign" >注册/登陆</OptionLink> )
                     }
-                    <div className="option">
+                    <OptionLink as='div' to='' >
                         <CartIcon/>
-                    </div>
-                </div>
+                    </OptionLink>
+                </OptionsDiv>
                 {
                     hidden ? <CartDropdown  /> : null
                 }
-            </div>
+            </HeaderDiv>
         );
     }
 }

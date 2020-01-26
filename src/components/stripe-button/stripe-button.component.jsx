@@ -37,7 +37,7 @@ const StripeButton = ({ price, userEmail, userImg }) => {
             locale="zh"
             email={userEmail}
             shippingAddress={true} // 收货地址
-            billingAddress={false} // 账单地址
+            billingAddress={true} // 账单地址
 
             alipay={true} // 是否开启支付宝付款(default false)
             token={onToken} // 提交后的回调函数
