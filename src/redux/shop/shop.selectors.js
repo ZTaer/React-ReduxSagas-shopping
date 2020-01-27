@@ -23,3 +23,25 @@ export const selectCollectionItem = collectionUrlProps => createSelector(
     [selectCollectionShop],
     collectionShop => collectionShop ? collectionShop[ collectionUrlProps ] : null  // 直接索引对象数据最最高效的, 比filuter,find都要高效: 原理https://www.kirupa.com/html5/hashtables_vs_arrays.htm( 完成笔记 )( 异步数据 )
 );
+
+// 选择失败时返回的数据
+export const selectCollectionsFailure = createSelector(
+    [selectShop],
+    shop => shop.errorMsg,
+);
+
+// 选择异步获取数据的状态
+export const selectCollectionsState = createSelector(
+    [selectShop],
+    shop => shop.isAxiosing,
+);
+
+// redux-thunk配置xx.selectors.js验证异步数据是否存在,配合加载器布尔值,防止出错( 完成笔记 )
+    // 0. "!!"符号: 将变量数据转布尔值类型
+        // a) !!"xxx" --> true; 
+        // b) !!null --> false;
+    // 1. 此时当数据存在时返回false隐藏加载器, 否则相反
+export const selectCollectionsLoaded = createSelector(
+    [selectCollectionShop],
+    collectionShop => !( !!collectionShop ),
+)

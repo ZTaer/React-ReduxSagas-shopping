@@ -6,10 +6,12 @@ import { Route } from 'react-router-dom';
 import CollectionOverView  from '../../components/collection-overview/collection-overview.component';
 import CollectionPage from '../collectionpage/collectionpage.component';
 
-import { firestore,convertCollectionsSnapshotToMap } from '../../firebase/firebase.config';
-
 import { connect } from 'react-redux';
-import { updateCollections } from '../../redux/shop/shop.action';
+
+// redux-thunk异步数据的使用( 完成笔记 )
+import { axiosCollectionsStateAsync } from '../../redux/shop/shop.action';
+import { createStructuredSelector } from 'reselect';
+import { selectCollectionsLoaded, selectCollectionsState } from '../../redux/shop/shop.selectors';
 
 // react加载器的使用( 完成笔记 )
 import WithSpinner from '../../components/with-spinner/with-spinner.component';
@@ -21,32 +23,17 @@ const CollectionPageWithSpinner = WithSpinner( CollectionPage );
 
 class ShopPage extends React.Component {
 
-    // react加载器: 有redux时, react简化版state写法, 可以配合this.setState()使用( 完成笔记 )
-    state = {
-        loadding: true,
-    }
-    
-    unsubscribeFromSnapshoty = null;
-
     componentDidMount(){
-        const { updateCollections } = this.props;
-
-        // 从firebase获取动态数据( 完成笔记 )
-            // 0. onSnapshot() 监听ref对象数据变化
-        const collectionsRef = firestore.collection('collections');
-        collectionsRef.onSnapshot( async snapshot => {
-            updateCollections(convertCollectionsSnapshotToMap( snapshot ));
-            this.setState({ loadding:false }); // react加载器: 加载完数据, loadding为false
-        } )
-
+       const { axiosCollectionsStateAsync } = this.props; 
+       axiosCollectionsStateAsync(); // 执行此函数获取异步数据
     }
 
     render(){
         // 对象解构法 - 创建对象属性变量并赋值( 完成笔记 )
             // 0. const { collectionShop } = this.state; 相当于 const collectionShop = this.state.collectionShop;
             // 1. 注意属性名称与变量名称一致，以及注意大括号。
-        const { match } = this.props;
-        const { loadding } = this.state;
+        const { match, isCollectionsAxiosing, isCollectionsLoad } = this.props;
+
         return (
             // 高级路由( 完成笔记 )
                 // 0. 子级组件中使用路由
@@ -64,13 +51,13 @@ class ShopPage extends React.Component {
                     exact 
                     path={`${match.path}`} 
                     render={
-                        props => ( <CollectionOverViewWithSpinner isLoading={ loadding } {...props} /> )
+                        props => ( <CollectionOverViewWithSpinner isLoading={ isCollectionsAxiosing  } {...props} /> )
                     }
                 />            
                 <Route 
                     path={`${match.path}/:collectionId`} 
                     render={
-                        props => ( <CollectionPageWithSpinner isLoading={ loadding } {...props} /> )
+                        props => ( <CollectionPageWithSpinner isLoading={ isCollectionsLoad } {...props} /> )
                     }
                 />            
             </div>        
@@ -78,8 +65,13 @@ class ShopPage extends React.Component {
     }
 }
 
-const mapDispatchToProps = dispatch => ({
-    updateCollections: collectionsData => dispatch( updateCollections( collectionsData ) ),
+const mapStateToProps = createStructuredSelector({
+    isCollectionsAxiosing: selectCollectionsState,
+    isCollectionsLoad: selectCollectionsLoaded,
 });
 
-export default connect(null,mapDispatchToProps)(ShopPage);
+const mapDispatchToProps = dispatch => ({
+    axiosCollectionsStateAsync: ()=>dispatch( axiosCollectionsStateAsync() ),
+});
+
+export default connect(mapStateToProps,mapDispatchToProps)(ShopPage);
