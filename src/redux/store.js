@@ -11,14 +11,18 @@ import logger from 'redux-logger';
     // 0. 注意中间件加入 const middlewares = [thunk];
 import thunk from 'redux-thunk';
 
+// redux-saga配置store.js( 完成笔记 )
+import createSagaMiddleware from 'redux-saga';
+import rootSaga from './root-sagas';
+
 // redux-persist的store配置( 完成笔记 )
 import { persistStore } from 'redux-persist';
-
 import rootReducer from './root-reducer';
 
-// 中间件: 因为中间件后期要添加很多,所以需要解构符来配合
+const sagaMiddleware = createSagaMiddleware(); // redux-saga配置中间件( redux-saga )
 
-const middlewares = [thunk];
+// 中间件: 因为中间件后期要添加很多,所以需要解构符来配合
+const middlewares = [ sagaMiddleware ];
 
 // process.end.NODE_ENV可以确定当前项目是否为生产环境( 完成笔记 )
     // 0. process.env.NODE_ENV === 'development': 为开发环境
@@ -28,6 +32,8 @@ if( process.env.NODE_ENV === 'development' ){
 }
 
 const store = createStore( rootReducer, applyMiddleware(...middlewares) );
+
+sagaMiddleware.run( rootSaga ); // 执行saga函数( redux-saga )
 
 // redux-persist的store配置( 完成笔记 )
 const persistor = persistStore(store); // 处理store

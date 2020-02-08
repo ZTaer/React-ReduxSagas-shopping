@@ -41,9 +41,9 @@ firebase.initializeApp(config); // 提交认证前面信息
 export const auth = firebase.auth(); // 认证函数库
 export const firestore = firebase.firestore();
 
-const provider = new firebase.auth.GoogleAuthProvider(); // 初始化谷歌登陆
-provider.setCustomParameters({ prompt: 'select_account' }); // 开启弹窗选择账号
-export const signInWithGoogle = () => auth.signInWithPopup(provider); // 验证用户
+export const googleProvider = new firebase.auth.GoogleAuthProvider(); // 初始化谷歌登陆
+// googleProvider.setCustomParameters({ prompt: 'select_account' }); // 开启弹窗选择账号
+// export const signInWithGoogle = () => auth.signInWithPopup(googleProvider); // 验证用户
 
 export default firebase; // 默认导出
 
@@ -152,4 +152,11 @@ export const convertCollectionsSnapshotToMap = collections => {
         return total;
     },{} );
 
+}
+
+// 验证用户状态是否有登陆
+export const getCurrentUser = () => {
+    return new Promise( (resolve, reject)=>{
+        auth.onAuthStateChanged( userAuth => resolve(userAuth), reject );
+    } );
 }

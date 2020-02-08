@@ -1,7 +1,7 @@
 import React from 'react';
 import { HeaderDiv, LogoContainer, OptionsDiv, OptionLink } from './header.styles';
 
-import {auth} from "../../firebase/firebase.config";
+import { signOutStart } from '../../redux/user/user.actions';
 
 import { createStructuredSelector } from 'reselect';
 import { selectCartHidden } from '../../redux/cart/cart.selectors';
@@ -10,7 +10,7 @@ import { selectUserCurrentUser } from '../../redux/user/user.selectors';
 // connect函数使react组件可以访问redux存储( 完成笔记 )
 import { connect } from 'react-redux';
 import  CartIcon from '../cart-icon/cart-icon.component';
-import CartDropdown from '../cart-dropdown/cart-dropdown.component';
+import CartDropdown from '../cart-dropdown/cart-dropdown.container';
 
 import CustomModal from '../custom-modal/custom-modal.component';
 import { handleOpenModal } from '../../redux/modal/modal.actions';
@@ -30,7 +30,7 @@ class Header extends React.Component {
     }
 
     render(){
-        const {currentUser, hidden} = this.props;
+        const {currentUser, hidden, signOutStart} = this.props;
         return(
             <HeaderDiv>
 
@@ -55,7 +55,7 @@ class Header extends React.Component {
                         // styled-components使用as可进行标签类型转换( 完成笔记 )
                             // a) 使用方式: <Xxxx as={'div'} ><Xxxx/> --> <div></div>
                             // b) as可以将组件转换为自定义标签,也可以转换为默认HMTL标签
-                        ( <OptionLink as='div' to='' onClick={ ()=>auth.signOut() } >退出</OptionLink> ) // 用户退出登陆( 完成笔记 )
+                        ( <OptionLink as='div' to='' onClick={signOutStart} >退出</OptionLink> ) // 用户退出登陆( 完成笔记 )
                         : 
                         ( <OptionLink className="option" to="/sign" >注册/登陆</OptionLink> )
                     }
@@ -70,6 +70,7 @@ class Header extends React.Component {
         );
     }
 }
+
 
 // React-Redux: connect()函数,用于交互redux数据( 完成笔记 )
     // 0. connect( mapStateToProps, mapDispatchToProps );
@@ -120,6 +121,7 @@ const mapStateToProps = createStructuredSelector({
 
 const mapDispatchToProps = dispatch => ({
     handleOpenModal: text => dispatch(handleOpenModal(text)),
+    signOutStart: ()=>dispatch(signOutStart()),
 });
 
 export default connect(mapStateToProps,mapDispatchToProps)(Header);

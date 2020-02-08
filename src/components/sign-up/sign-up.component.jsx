@@ -3,8 +3,10 @@ import "./sign-up.style.scss";
 
 import FormInput from '../form-input/form-input.component';
 import CustomButtonExp from '../custom-button-exp/custom-button-exp.component';
-import { auth, createUserProfileDocument } from '../../firebase/firebase.config';
-import { withRouter } from 'react-router-dom';
+
+// 像往常一样调用action即可促发对应的redux-saga函数
+import { connect } from 'react-redux';
+import { signUpStart } from '../../redux/user/user.actions';
 
 class SignUp extends React.Component {
     constructor( props ){
@@ -20,28 +22,15 @@ class SignUp extends React.Component {
     handleSubmit = async cur => {
         cur.preventDefault();
         const { displayName, email, password, confirmPassword } = this.state;
+        const { signUpStart } = this.props;
+
         if( password !== confirmPassword ){
             alert('二者密码不相同,请重新输入');
             return;
         }
-        try{
-            // firebase创建用户函数( 完成笔记 ) 
-                // 0. auth.createUserWithEmailAndPassword( email, password )创建用户
-                // 1. 成功: 则返回创建用户信息
-                // 2. 失败: 则返回失败原因
-                // 3. 注意: 要在Firebase控制台开启'允许用户使用电子邮件和密码注册'
-            let createUser = await auth.createUserWithEmailAndPassword( email, password );
-            await createUserProfileDocument( createUser.user, {displayName} ); // 吐血~这个createUser,应该返回createUser.user!!!!无语!!!!
-            alert('注册成功');
 
-            // 跳转到主页
-            this.props.history.push('/');
-        }
-        catch( err ){
-            // 在控制台显示红色错误信息( 完成笔记 )
-            console.error(err);
-            alert( err.message );
-        }
+        await signUpStart( email, password, displayName ); // 在redux-saga中创建账户
+
         this.setState({
             email: '',
             password: '',
@@ -110,4 +99,12 @@ class SignUp extends React.Component {
 
 }
 
-export default withRouter(SignUp);
+const mapDispatchToProps = dispatch => ({
+    signUpStart: (email,password,displayName)=>dispatch(signUpStart({
+        email,
+        password,
+        displayName,
+    })),
+});
+
+export default connect(null,mapDispatchToProps)(SignUp) ;

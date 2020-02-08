@@ -8,10 +8,8 @@ import SignPage from './pages/signpage/signpage.component';
 import CheckoutPage from './pages/checkout/checkout.component';
 import TelPage from './pages/telpage/telpage.component';
 
-import { auth, createUserProfileDocument, addCollectionAndDocuments } from './firebase/firebase.config';
-
 import { connect } from 'react-redux';
-import { setCurrentUser } from './redux/user/user.actions';
+import { setCurrentUser, checkUserSession } from './redux/user/user.actions';
 
 import { createStructuredSelector } from 'reselect';
 import { selectUserCurrentUser } from './redux/user/user.selectors';
@@ -30,31 +28,8 @@ class App extends React.Component {
   
   // 获取登陆用户信息( 完成笔记 )
   componentDidMount(){
-    const { setCurrentUser, collectionsArray } = this.props;
-
-    this.unsubscribeFromAuth = auth.onAuthStateChanged( async user => {
-      // 如果用户登陆
-      if( user ){
-        // firebase-onSnapshot()监听文档对象(快照对象)方便数据更新( 完成笔记 )
-          // 0. onSnapshot(props=>{xx}) 用于监听快照对象,如果数据发生变化,方便数据变化时实时更新
-          // 1. props用于传递快照对象的数据,于监听快照对象无疑
-        const userRef = await createUserProfileDocument( user ); // React什么周期组件内,可以使用await等待异步数据( 完成笔记 )
-        userRef.onSnapshot( props => {
-          setCurrentUser({
-            id: props.id,
-            ...props.data()
-          });
-        } );
-      }
-      // 注意:此乃谷歌原始配置信息
-      setCurrentUser( user );
-
-      // 应用: firebase添加数据( 完成笔记 )
-        // 0. 取出指定数据title和items: collectionsArray.map( ({ title, items })=>({ title, items }) );
-      // addCollectionAndDocuments( 'collections', collectionsArray.map( ({title, items})=>({title, items}) ) );
-    } );
-
-
+    const { checkUserSession } = this.props;
+    checkUserSession();
   }
 
   // 卸载组件时,退出登陆( 完成笔记 )
@@ -201,6 +176,7 @@ const mapStateToProps = createStructuredSelector ({
 
 const mapDispatchToProps = dispatch => ({
   setCurrentUser: user => dispatch( setCurrentUser(user) ),
+  checkUserSession: () => dispatch( checkUserSession() ),
 });
 
 export default connect(mapStateToProps,mapDispatchToProps)(App);

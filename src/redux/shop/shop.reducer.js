@@ -14,7 +14,7 @@ const INITIAL_STATE = {
 
 const shopReducer = ( state=INITIAL_STATE, action ) => {
     switch (action.type) {
-        case shopActionTypes.AXIOS_COLLECTIONS_STATE:
+        case shopActionTypes.AXIOS_COLLECTIONS_START:
             return {
                 ...state,
                 isAxiosing: true,

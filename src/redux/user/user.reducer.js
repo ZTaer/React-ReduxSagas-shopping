@@ -5,7 +5,8 @@ import { UserActionTypes } from './user.types';
 
 // 初始化state
 const INITIAL_STATE = {
-    currentUser: null
+    currentUser: null,
+    error: null,
 }
 
 // 接受处理action值改变state 
@@ -19,6 +20,49 @@ const userReducer = ( state = INITIAL_STATE, action ) => {
             return{
                 ...state,
                 currentUser: action.payload,
+            }
+        case UserActionTypes.GOOGLE_SIGN_IN_START:
+            return{
+                ...state,
+            }
+        case UserActionTypes.EMAIL_SIGN_IN_START:
+            return{
+                ...state,
+            }
+        case UserActionTypes.SIGN_IN_SUCCESS:
+            return{
+                ...state,
+                currentUser: action.payload,
+                error: null,
+            }
+        case UserActionTypes.SIGN_OUT_FAILURE:
+        case UserActionTypes.SIGN_IN_FAILURE:
+        case UserActionTypes.SIGN_UP_FAILURE:
+            return{
+                ...state,
+                error: action.payload,
+            }
+        case UserActionTypes.CHECK_USER_SESSION:
+            return{
+                ...state,
+            }
+        case UserActionTypes.SIGN_OUT_START:
+            return{
+                ...state,
+            }
+        case UserActionTypes.SIGN_OUT_SUCCESS:
+            return{
+                ...state,
+                currentUser: null,
+                error: null,
+            }
+        case UserActionTypes.SIGN_UP_START:
+            return{
+                ...state,
+            }
+        case UserActionTypes.SIGN_UP_SUCCESS:
+            return{
+                ...state,
             }
         default:
             return state;

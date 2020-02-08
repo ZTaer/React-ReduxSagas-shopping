@@ -2,29 +2,37 @@ import React from 'react';
 import "./shopage.styles.scss";
 
 import { Route } from 'react-router-dom';
+
+import CollectionOverView  from '../../components/collection-overview/collection-overview.component';
+import CollectionPage from '../collectionpage/collectionpage.component';
+
 import { connect } from 'react-redux';
 
 // redux-thunk异步数据的使用( 完成笔记 )
-// redux-saga异步数据的使用方法与redux-thunk相同( 完成笔记 )
-    // a) 其实就是直接将action函数正常redux使用的方式就好
-import { axiosCollectionsStart } from '../../redux/shop/shop.action';
+import { axiosCollectionsStateAsync } from '../../redux/shop/shop.action';
+import { createStructuredSelector } from 'reselect';
+import { selectCollectionsLoaded, selectCollectionsState } from '../../redux/shop/shop.selectors';
 
-// 使用"容器模式"( 完成笔记 )
-import CollectionOverviewContainer from '../../components/collection-overview/collection-overview.container';
-import CollectionpageContainer from '../collectionpage/collectionpage.container';
+// react加载器的使用( 完成笔记 )
+import WithSpinner from '../../components/with-spinner/with-spinner.component';
+// react加载器: 要使用加载器的组件准备
+const CollectionOverViewWithSpinner = WithSpinner( CollectionOverView );
+const CollectionPageWithSpinner = WithSpinner( CollectionPage );
+
+
 
 class ShopPage extends React.Component {
 
     componentDidMount(){
-       const { axiosCollectionsStart } = this.props; 
-       axiosCollectionsStart(); // 执行此函数获取异步数据
+       const { axiosCollectionsStateAsync } = this.props; 
+       axiosCollectionsStateAsync(); // 执行此函数获取异步数据
     }
 
     render(){
         // 对象解构法 - 创建对象属性变量并赋值( 完成笔记 )
             // 0. const { collectionShop } = this.state; 相当于 const collectionShop = this.state.collectionShop;
             // 1. 注意属性名称与变量名称一致，以及注意大括号。
-        const { match } = this.props;
+        const { match, isCollectionsAxiosing, isCollectionsLoad } = this.props;
 
         return (
             // 高级路由( 完成笔记 )
@@ -42,19 +50,28 @@ class ShopPage extends React.Component {
                 <Route 
                     exact 
                     path={`${match.path}`} 
-                    component={CollectionOverviewContainer}
+                    render={
+                        props => ( <CollectionOverViewWithSpinner isLoading={ isCollectionsAxiosing  } {...props} /> )
+                    }
                 />            
                 <Route 
                     path={`${match.path}/:collectionId`} 
-                    component={CollectionpageContainer}
+                    render={
+                        props => ( <CollectionPageWithSpinner isLoading={ isCollectionsLoad } {...props} /> )
+                    }
                 />            
             </div>        
         );
     }
 }
 
-const mapDispatchToProps = dispatch => ({
-    axiosCollectionsStart: ()=>dispatch( axiosCollectionsStart() ),
+const mapStateToProps = createStructuredSelector({
+    isCollectionsAxiosing: selectCollectionsState,
+    isCollectionsLoad: selectCollectionsLoaded,
 });
 
-export default connect(null,mapDispatchToProps)(ShopPage);
+const mapDispatchToProps = dispatch => ({
+    axiosCollectionsStateAsync: ()=>dispatch( axiosCollectionsStateAsync() ),
+});
+
+export default connect(mapStateToProps,mapDispatchToProps)(ShopPage);

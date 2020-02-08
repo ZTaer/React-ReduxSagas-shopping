@@ -4,8 +4,8 @@ import { shopActionTypes } from './shop.types';
 
 import { firestore,convertCollectionsSnapshotToMap } from '../../firebase/firebase.config';
 
-export const axiosCollectionsState = () => ({
-    type: shopActionTypes.AXIOS_COLLECTIONS_STATE,
+export const axiosCollectionsStart = () => ({
+    type: shopActionTypes.AXIOS_COLLECTIONS_START,
 });
 
 export const axiosCollectionsFailure = errorMsg => ({
@@ -24,7 +24,7 @@ export const axiosCollectionsSuccess = data => ({
 export const axiosCollectionsStateAsync = () => {
     return dispatch => {
         const collectionsRef = firestore.collection('collections');
-        dispatch( axiosCollectionsState() ); // 开始获取数据状态
+        dispatch( axiosCollectionsStart() ); // 开始获取数据状态
 
         const collectionMap = async () => {
             try{
