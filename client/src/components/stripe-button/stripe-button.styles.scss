@@ -1,0 +1,17 @@
+@import '../../assets/_OO7BTS.v2.2';
+.stripe-btn{
+    width:200px;
+    height:55px;
+    border-radius: 5px;
+    background: #000;
+    border:1px solid #222;
+    color:#fff;
+    letter-spacing: 5px;
+    font-size: 1.2rem;
+    cursor: pointer;
+    @include img-transition(0.3);
+    &:hover{
+        background: #fff;
+        color:#222;
+    }
+}

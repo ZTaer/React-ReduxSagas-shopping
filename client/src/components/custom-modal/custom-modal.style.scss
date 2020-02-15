@@ -1,0 +1,80 @@
+@import"../../assets/_OO7BTS.v2.2";
+
+/********** 初始化样式 *****/
+.Modal {
+    position: absolute;
+    top: 0px;
+    left: 0px;
+    right: 0px;
+    bottom: 0px;
+    margin:auto;
+    
+    background-color:#ccc;
+    border:0;
+}
+
+.Overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(0,0,0,0.5);
+}
+
+// 为了打开时有动画效果
+.ReactModal__Overlay {
+    opacity: 0;
+    transition: opacity 500ms ease-in-out;
+}
+.ReactModal__Overlay--after-open{
+    opacity: 1;
+}
+.ReactModal__Overlay--before-close{
+    opacity: 0;
+}
+
+/********** 改进样式 *****/
+.custom-modal-btn{
+    outline: none;   
+}
+$h:250px;
+$cir: 25px;
+.Modal{
+    outline: none; 
+    min-width: 600px;
+    max-width:70%;
+    max-height:70px+$h;
+    background: #222;
+    opacity: 0.9;
+    border-radius: $cir;
+    .modal-title{
+        height:35px;
+        padding:0.5rem;
+        text-align: right;       
+        .modal-btn{
+            outline: none; 
+            border:0;
+            background-attachment: fixed !important;
+            background: rgba(0,0,0,0);
+            color:#fff;
+            font-size: 1rem;
+            @include img-transition(0.3);
+            &:hover{
+                cursor: pointer;
+                color:#696969;
+            }
+        }
+    }
+    .modal-content{
+        @include display-flex();
+        @include xy-items(center,center);
+        height: $h - 35px;
+        p{
+            padding:0.5rem;
+            @include font-style(3rem,#fff,lighter,10px);
+            margin:0;
+            text-align: center;
+        }
+    }
+}
