@@ -1,5 +1,5 @@
 /**
- * Stripe-使用react-stripe-checkout构建stripe支付
+ * Stripe-使用react-stripe-checkout构建stripe支付( 等待笔记 )
  *  0. 安装: yarn add react-stripe-checkout
  *  1. Github(有使用方法): https://github.com/azmenak/react-stripe-checkout
  */
@@ -19,6 +19,7 @@ const StripeButton = ({ price, userEmail, userImg, clearCartItems }) => {
     const publishableKey = 'pk_test_119uiR5NTtcknALVrdLEfQPm00IylDmstZ';
 
     const onToken = token => {
+        // 注意这里是提交按钮时促发的函数
         // 像后端发送stripe支付信息( 等待笔记 )
         // axios使用post向服务器发送信息
         axios({
@@ -26,7 +27,7 @@ const StripeButton = ({ price, userEmail, userImg, clearCartItems }) => {
             method: 'post',
             data: {
                 amount: priceForStripe,
-                token,
+                token, // token包含一切关于stripe支付信息
             }
         })
         .then( res => {
