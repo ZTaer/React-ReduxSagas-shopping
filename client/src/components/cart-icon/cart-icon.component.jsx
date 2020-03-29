@@ -1,6 +1,5 @@
 import React from 'react';
-import "./cart-icon.styles.scss";
-import { ReactComponent as CartIconSvg } from "../../assets/shopping-bag.svg";
+import { CartIconStyledContainer, CartIconSvgStyled, ItemCount } from './cart-icon.styles';
 
 import { connect } from 'react-redux';
 import { toggleCartHidden } from '../../redux/cart/cart.actions';
@@ -9,12 +8,12 @@ import { selectCartItemsCount } from '../../redux/cart/cart.selectors';
 
 const CartIcon = ({ toggleCartHidden,itemCount }) => {
     return(
-        <div className="cart-icon" onClick={toggleCartHidden} >
-            <CartIconSvg className="shopping-icon" />
-            <span className="item-count">
+        <CartIconStyledContainer onClick={toggleCartHidden} >
+            <CartIconSvgStyled />
+            <ItemCount className="test" >
                 {itemCount}
-            </span>
-        </div>
+            </ItemCount>
+        </CartIconStyledContainer>
     );
 }
 // 使用reduce函数来计算购物车商品数量

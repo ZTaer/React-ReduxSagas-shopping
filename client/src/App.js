@@ -1,6 +1,8 @@
 import React, { useEffect } from 'react';
 import { Switch,Route,Redirect } from 'react-router-dom';
 
+import { GlobalStyle } from './global.styles'; // 使用作用于全局的css( 等待笔记 )
+
 import Header from './components/header/header.component';
 import HomePage from './pages/homepage/homepage.component';
 import ShopPage from './pages/shoppage/shoppage.component';
@@ -39,6 +41,7 @@ const App = ({ checkUserSession, currentUser }) => {
 
   return(
     <div className="App">
+      <GlobalStyle />
       <Header />
       <Switch>
         <Route exact path='/' component={HomePage} />

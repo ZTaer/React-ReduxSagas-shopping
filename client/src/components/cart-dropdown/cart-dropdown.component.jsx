@@ -1,20 +1,19 @@
 import React from 'react';
-import "./cart-dropdown.styles.scss";
+import { CartDropdownStyledContainer, CartItems, CartItemsAlt, CustomButtonExpStyled } from './cart-dropdown.styles';
 
-import CustomButtonExp from '../custom-button-exp/custom-button-exp.component';
 import CartItem from '../cart-item/cart-item.component';
 
 const CartDropdown = ({ cartItems, history, toggleCartHidden }) => {
     return (
-        <div className="cart-dropdown">
-            <div className="cart-items">
+        <CartDropdownStyledContainer>
+            <CartItems>
                 {
                     cartItems.length ? 
                     cartItems.map( cur => (<CartItem key={cur.id} item={cur} />) ) :
-                    (<span className="cart-items-alt" >你购物车是空的!</span>)
+                    (<CartItemsAlt >你购物车是空的!</CartItemsAlt>)
                 }
-            </div>
-            <CustomButtonExp 
+            </CartItems>
+            <CustomButtonExpStyled 
             onClick={ ()=>{
                 toggleCartHidden();
                 history.push('/checkout');
@@ -22,8 +21,8 @@ const CartDropdown = ({ cartItems, history, toggleCartHidden }) => {
             isCartDropdownBtnStyles
             >
                 结算
-            </CustomButtonExp>
-        </div>
+            </CustomButtonExpStyled>
+        </CartDropdownStyledContainer>
     );
 }
 
