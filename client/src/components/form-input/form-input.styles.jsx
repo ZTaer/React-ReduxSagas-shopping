@@ -60,7 +60,6 @@ export const FromInputStyled = styled.input`
 // 表单如果有数值则使用指定css
 const inputLength = props => {
     if( props.inputLength ){
-        console.log(props.inputLength);
         return css`
             ${shrinkLabel} 
         `;
