@@ -1,5 +1,5 @@
 import React from 'react';
-import "./collectionpage.styles.scss";
+import { CollectionPageStyledContainer, Title, Items } from './collectionpage.styles';
 
 import { withRouter } from 'react-router-dom';
 import { connect } from 'react-redux';
@@ -10,16 +10,16 @@ import CollectionItem from '../../components/collection-item/collection-item.com
 const CollectionPage = ({ collectionItem }) => {
     const { title, items } = collectionItem;
     return(
-        <div className="collection-page">
-            <h2 className="title">
+        <CollectionPageStyledContainer>
+            <Title>
                 { title }
-            </h2>
-            <div className="items">
+            </Title>
+            <Items>
                 {
                     items.map( item => ( <CollectionItem key={item.id} item={item} /> ) )
                 }
-            </div>
-        </div>
+            </Items>
+        </CollectionPageStyledContainer>
     );
 };
 

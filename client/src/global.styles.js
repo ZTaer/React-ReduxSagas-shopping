@@ -1,4 +1,4 @@
-// createGlobalStyle: 创建作用于全局的css( 等待笔记 )
+// createGlobalStyle: 创建作用于全局的css( 完成笔记 )
 import { createGlobalStyle } from 'styled-components';
 
 export const GlobalStyle = createGlobalStyle`

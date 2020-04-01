@@ -1,4 +1,4 @@
-import styled,{css} from 'styled-components';
+import {css} from 'styled-components';
 
 // 1-0
 export const display_flex = ( direction = 'row' ) => {
@@ -41,9 +41,9 @@ export const xy_content = ( x, y, wrap = 'wrap' ) => {
 // 5-0
 export const img_transition = ( times ) => {
     return css`
-        transition:all ${times} linear;
-		-moz-transition: all ${times} linear;
-		-webkit-transition: all ${times} linear;
+        transition:all ${times}s linear;
+		-moz-transition: all ${times}s linear;
+		-webkit-transition: all ${times}s linear;
     `;
 } 
 

@@ -1,5 +1,7 @@
-@import '../../assets/_OO7BTS.v2.2';
-.stripe-btn{
+import styled from 'styled-components';
+import { img_transition } from '../../assets/__OO7BTS.v1.0';
+
+export const StripeBtn = styled.button`
     width:200px;
     height:55px;
     border-radius: 5px;
@@ -9,9 +11,9 @@
     letter-spacing: 5px;
     font-size: 1.2rem;
     cursor: pointer;
-    @include img-transition(0.3);
+    ${img_transition(0.3)}
     &:hover{
         background: #fff;
         color:#222;
     }
-}
+`;

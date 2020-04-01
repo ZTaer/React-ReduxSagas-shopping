@@ -1,5 +1,5 @@
 import React,{ useState } from 'react';
-import "./sign-up.style.scss";
+import { SignUpStyledContainer } from './sign-up.styles';
 
 import FormInput from '../form-input/form-input.component';
 import CustomButtonExp from '../custom-button-exp/custom-button-exp.component';
@@ -38,7 +38,7 @@ const SignUp = ({ signUpStart }) => {
     }
 
     return (
-        <div className="sign-up">
+        <SignUpStyledContainer>
         <h2>
             注册用户
         </h2>
@@ -85,7 +85,7 @@ const SignUp = ({ signUpStart }) => {
                 提交
             </CustomButtonExp>
         </form> 
-        </div>
+        </SignUpStyledContainer>
     );
 
 }

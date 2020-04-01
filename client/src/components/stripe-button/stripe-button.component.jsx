@@ -1,11 +1,11 @@
 /**
- * Stripe-使用react-stripe-checkout构建stripe支付( 等待笔记 )
+ * Stripe-使用react-stripe-checkout构建stripe支付( 完成笔记 )
  *  0. 安装: yarn add react-stripe-checkout
  *  1. Github(有使用方法): https://github.com/azmenak/react-stripe-checkout
  */
 
 import React from 'react';
-import "./stripe-button.styles.scss";
+import { StripeBtn } from './stripe-button.styles';
 
 import StripeCheckout from 'react-stripe-checkout';
 import { connect } from 'react-redux';
@@ -20,7 +20,7 @@ const StripeButton = ({ price, userEmail, userImg, clearCartItems }) => {
 
     const onToken = token => {
         // 注意这里是提交按钮时促发的函数
-        // 像后端发送stripe支付信息( 等待笔记 )
+        // 像后端发送stripe支付信息( 完成笔记 )
         // axios使用post向服务器发送信息
         axios({
             url: 'payment',
@@ -60,9 +60,9 @@ const StripeButton = ({ price, userEmail, userImg, clearCartItems }) => {
             alipay={true} // 是否开启支付宝付款(default false)
             token={onToken} // 提交后的回调函数
         >
-            <button className="stripe-btn">
+            <StripeBtn>
                 立即支付
-            </button>
+            </StripeBtn>
         </StripeCheckout>
     );
 };

@@ -1,5 +1,5 @@
 import React,{ useState } from "react";
-import "./sign-in.style.scss";
+import { SignInStyledContainer, BtnSign } from './sign-in.styles';
 
 import FormInput from "../form-input/form-input.component";
 import CustomButtonExp from "../custom-button-exp/custom-button-exp.component";
@@ -25,7 +25,7 @@ const SignIn = ( { googleSignInStart, emailSignInStart } ) => {
         setUserState( { ...userState ,[name]: value} );
     }
     return(
-        <div className="sign-in">
+        <SignInStyledContainer>
             <h2>
                 登陆用户
             </h2>
@@ -49,16 +49,16 @@ const SignIn = ( { googleSignInStart, emailSignInStart } ) => {
                     name="password" 
                     value={userState.password} required  
                 />
-                <div className="btn-sign">
+                <BtnSign>
                     <CustomButtonExp isSignWidthStyles type="submit" >
                         登陆
                     </CustomButtonExp>
                     <CustomButtonExp type="button" isGoogleStyles onClick={ googleSignInStart } >
                         Google登陆
                     </CustomButtonExp>
-                </div>
+                </BtnSign>
             </form>
-        </div>
+        </SignInStyledContainer>
     );
 }
 

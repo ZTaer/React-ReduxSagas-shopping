@@ -1,5 +1,5 @@
 import React from 'react';
-import "./shopage.styles.scss";
+import { ShopPageStyledContainer } from './shopage.styles';
 
 import { Route } from 'react-router-dom';
 import { connect } from 'react-redux';
@@ -30,7 +30,7 @@ const ShopPage = ({ axiosCollectionsStart,match }) => {
                     // 0. 当前页面(必备): <Route exact path={`${match.path}`} component={CollectionOverView} />            
                     // 1. 子页面: <Route path={`${match.path}/:collectionId`} component={CollectionPage} />
             // 2. 通常情况下是由match配置动态路由
-        <div className="shop-page">
+        <ShopPageStyledContainer>
             <Route 
                 exact 
                 path={`${match.path}`} 
@@ -40,7 +40,7 @@ const ShopPage = ({ axiosCollectionsStart,match }) => {
                 path={`${match.path}/:collectionId`} 
                 component={CollectionpageContainer}
             />            
-        </div>        
+        </ShopPageStyledContainer>        
     );
 }
 

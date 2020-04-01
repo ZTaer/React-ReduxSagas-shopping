@@ -3,11 +3,13 @@ import { display_flex, xy_items, img_transition } from '../../assets/__OO7BTS.v1
 
 
 export const CollectionItemStyledContainer = styled.div`
-    width: 21vw;
+    width: 20vw;
     display: flex;
     flex-direction: column;
     height: 525px;
-    @media ( max-width:1400px ) {
+    margin-bottom:0.4rem;
+    @media ( max-width:1500px ) {
+        width: 19vw;
         height:400px;
     }
     align-items: center;

@@ -1,6 +1,6 @@
 import React from 'react';
 import MenuItem from '../menu-item/menu-item.component';
-import "./directory-menu.style.scss";
+import { DirectoryMenuStyledContainer } from './directory-menu.styles';
 
 import { connect } from 'react-redux';
 import { createStructuredSelector } from 'reselect';
@@ -8,7 +8,7 @@ import { selectSections } from '../../redux/dire/dire.selectors';
 
 const DirectoryMenu = ( { sections } ) => {
   return(
-    <div className="directory-menu">
+    <DirectoryMenuStyledContainer>
         {
             // 注意map()如何返回JSX( 完成笔记 )
                 // 这里使用了对象的解构
@@ -20,7 +20,7 @@ const DirectoryMenu = ( { sections } ) => {
                 <MenuItem key={id} {...otherData} ></MenuItem>
               ) )
         }
-    </div>
+    </DirectoryMenuStyledContainer>
   );
 }
 

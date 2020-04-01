@@ -1,6 +1,5 @@
 import React from 'react';
-
-import "./checkout.styles.scss";
+import { CheckoutPageStyledContainer, CheckoutHeader, HeaderBlock, Total, TestWarning } from './checkout.styles';
 
 import { connect } from 'react-redux';
 import { createStructuredSelector } from 'reselect';
@@ -11,52 +10,52 @@ import StripeButton from '../../components/stripe-button/stripe-button.component
 
 const CheckoutPage = ( {cartPriceTotal, cartItems} ) => {
     return(
-        <div className="checkout-page">
+        <CheckoutPageStyledContainer>
 
-            <div className="checkout-header">
-                <div className="header-block">
+            <CheckoutHeader>
+                <HeaderBlock>
                     <span>
                         产品
                     </span>
-                </div>
+                </HeaderBlock>
 
-                <div className="header-block">
+                <HeaderBlock>
                     <span>
                         描述                        
                     </span>
-                </div>
+                </HeaderBlock>
 
-                <div className="header-block">
+                <HeaderBlock>
                     <span>
                         数量
                     </span>
-                </div>
+                </HeaderBlock>
 
-                <div className="header-block">
+                <HeaderBlock>
                     <span>
                         价格
                     </span>
-                </div>
+                </HeaderBlock>
 
-                <div className="header-block">
+                <HeaderBlock>
                     <span>
                         移除
                     </span>
-                </div>
-            </div>
+                </HeaderBlock>
+            </CheckoutHeader>
 
             {
                 cartItems.map( cur=>(<CheckoutItem key={cur.id} cartItem={cur} />) )
             }
 
-            <div className="total">
+            <Total>
                 <span>
                     总和: ￥{cartPriceTotal}
                 </span>
-            </div>
+            </Total>
 
             <StripeButton price={cartPriceTotal} />
-            <div className="test-warning">
+            <TestWarning>
                 <p>
                     <b>
                         Stripe测试信用卡支付(因面试所用暂未激活Stripe支付)<br/>
@@ -65,9 +64,9 @@ const CheckoutPage = ( {cartPriceTotal, cartItems} ) => {
                         <b>密码:</b> 123 (任意3位) 
                         <b>时间:</b> 01/2020 (当前月/年)
                 </p>
-            </div>
+            </TestWarning>
 
-        </div>
+        </CheckoutPageStyledContainer>
     );
 };
 

@@ -1,8 +1,7 @@
 import React from 'react';
 
 import { withRouter } from 'react-router-dom';
-
-import "./menu-item.style.scss";
+import { MenuItemStyledContainer, Content, Title, Subtitle, BackgroundImage } from './menu-item.styles';
 
 /**
  * 路由withRouter函数: 使当前页面下的组件, 可以直接访问"当前页面路由信息"( 完成笔记 )
@@ -12,23 +11,24 @@ import "./menu-item.style.scss";
  */
 const MenuItem = ({ title,imageUrl,size,linkUrl,history,match }) => (
 
-    <div 
-    onClick={ ()=>history.push( `${match.url}${linkUrl}` ) } 
-    className={ ` menu-item ${size} ` }
+    <MenuItemStyledContainer 
+        onClick={ ()=>history.push( `${match.url}${linkUrl}` ) } 
+        className={ size ? `${size}` : `` }
     >
-        <div style={ { 
-            backgroundImage: `url(${imageUrl})` 
-        } } className="background-image">
-        </div>
-        <div className="content">
-            <h1 className="title">
-                {title.toUpperCase()  }
-            </h1>
-            <span className="subtitle">
-                SHOP NOW
-            </span>
-        </div>
-    </div>
+        <BackgroundImage 
+            backgroundImage = {imageUrl}  
+            className="background-image"
+        >
+        </BackgroundImage>
+        <Content className="content">
+            <Title>
+                {title.toUpperCase()}
+            </Title>
+            <Subtitle>
+                查看更多
+            </Subtitle>
+        </Content>
+    </MenuItemStyledContainer>
 );
 
 export default withRouter(MenuItem);
