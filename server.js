@@ -3,6 +3,7 @@ const express = require('express'); // node.js框架方便构建服务
 const cors = require('cors'); // 处理跨源请求( 跨服务器请求 )
 const bodyParser = require('body-parser'); // 方便加工处理json
 const path = require('path');
+const compression = require('compression'); // gzip压缩库，使项目文件变的更小
 
 // 1. 如果不是"生产环境"则进入dotenv库中的config()函数
 if( process.env.NODE_ENV !== 'production' ){
@@ -18,6 +19,8 @@ const port = process.env.PORT || 5000; // 测试使用的端口,为5000,react项
     const stripe = require('stripe')( process.env.STRIPE_SECRET_KEY );
 
 // 3. 加工处理数据
+app.use( compression() ); // gzip压缩开启
+
 app.use( bodyParser.json() ); // 收到的如何请求转为json格式
 app.use( bodyParser.urlencoded({ extended: true }) ); // 处理url编码
 
