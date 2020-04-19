@@ -1,4 +1,4 @@
-import React from 'react';
+import React,{lazy, Suspense} from 'react';
 import { ShopPageStyledContainer } from './shopage.styles';
 
 import { Route } from 'react-router-dom';
@@ -8,11 +8,16 @@ import { connect } from 'react-redux';
 // redux-saga异步数据的使用方法与redux-thunk相同( 完成笔记 )
     // a) 其实就是直接将action函数正常redux使用的方式就好
 import { axiosCollectionsStart } from '../../redux/shop/shop.action';
-
 // 使用"容器模式"( 完成笔记 )
-import CollectionOverviewContainer from '../../components/collection-overview/collection-overview.container';
-import CollectionpageContainer from '../collectionpage/collectionpage.container';
+// import CollectionOverviewContainer from '../../components/collection-overview/collection-overview.container';
+// import CollectionpageContainer from '../collectionpage/collectionpage.container';
+
+import ErrorBoundary from '../../components/error-boundary/error-boundary.component';
+import Spinner from '../../components/spinner/spinner.component';
 import { useEffect } from 'react';
+
+const CollectionOverviewContainer = lazy( () => import('../../components/collection-overview/collection-overview.container') );
+const CollectionpageContainer = lazy( () => import('../collectionpage/collectionpage.container') );
 
 const ShopPage = ({ axiosCollectionsStart,match }) => {
 
@@ -31,15 +36,19 @@ const ShopPage = ({ axiosCollectionsStart,match }) => {
                     // 1. 子页面: <Route path={`${match.path}/:collectionId`} component={CollectionPage} />
             // 2. 通常情况下是由match配置动态路由
         <ShopPageStyledContainer>
-            <Route 
-                exact 
-                path={`${match.path}`} 
-                component={CollectionOverviewContainer}
-            />            
-            <Route 
-                path={`${match.path}/:collectionId`} 
-                component={CollectionpageContainer}
-            />            
+            <ErrorBoundary>
+                <Suspense fallback={<Spinner />} >
+                    <Route 
+                        exact 
+                        path={`${match.path}`} 
+                        component={CollectionOverviewContainer}
+                    />            
+                    <Route 
+                        path={`${match.path}/:collectionId`} 
+                        component={CollectionpageContainer}
+                    />            
+                </Suspense>
+            </ErrorBoundary>
         </ShopPageStyledContainer>        
     );
 }
