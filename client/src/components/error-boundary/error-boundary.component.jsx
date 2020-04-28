@@ -1,7 +1,7 @@
 import React from 'react';
 import { ErrorImageContainer, ErrorImageOverlay, ErrorImageText } from './error-boundary.styles';
 /**
- * 构建: 抓取错误的组件error-boundary( 等待笔记 )
+ * 构建: 抓取错误的组件error-boundary( 完成笔记 )
  *      a) 目的: 控制组件出错时渲染的页面，以及获取报错信息
  *      b) 使用: 嵌套Suspense标签外，用于监测错误, 并渲染自定义错误页面
  *          <ErrorBoundary>

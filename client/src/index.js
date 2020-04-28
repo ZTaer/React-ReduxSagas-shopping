@@ -13,6 +13,9 @@ import { Provider } from 'react-redux';
 import { PersistGate } from 'redux-persist/integration/react';
 import { store, persistor } from './redux/store';
 
+// 配置PWA: serviceWorker( 完成笔记 )
+import * as serviceWorker from "./serviceWorker";
+
 import './index.css';
 import App from './App';
 
@@ -32,3 +35,4 @@ ReactDOM.render(
     document.getElementById('root')
 );
 
+serviceWorker.register(); // 注册serviceWorker

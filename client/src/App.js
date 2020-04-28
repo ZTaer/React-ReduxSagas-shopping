@@ -19,10 +19,10 @@ import { createStructuredSelector } from 'reselect';
 import { selectUserCurrentUser } from './redux/user/user.selectors';
 import { selectCollectionShopArray } from './redux/shop/shop.selectors';
 
-// 使用: 抓取错误组件( 等待笔记 )
+// 使用: 抓取错误组件( 完成笔记 )
 import ErrorBoundary from './components/error-boundary/error-boundary.component';
 
-// React Lazy + Suspense代码拆分,性能提升( 等待笔记 )
+// React Lazy + Suspense代码拆分,性能提升( 完成笔记 )
     // 0. 目的: 
         // a) ReactLazy: 代码拆分成块,只加载所需的代码,不加载多余的代码,使我们的程序初试加载使更加迅速
         // b) Suspense: 精确抓取组件错误,同时给ReactLazy擦屁股,因为使用ReactLazy会出现错误

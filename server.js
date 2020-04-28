@@ -4,6 +4,7 @@ const cors = require('cors'); // 处理跨源请求( 跨服务器请求 )
 const bodyParser = require('body-parser'); // 方便加工处理json
 const path = require('path');
 const compression = require('compression'); // gzip压缩库，使项目文件变的更小
+const enforce = require('express-sslify'); // 为PWA配置: 强制https,因heroku没有强制https选项( 等待笔记 )
 
 // 1. 如果不是"生产环境"则进入dotenv库中的config()函数
 if( process.env.NODE_ENV !== 'production' ){
@@ -23,7 +24,7 @@ app.use( compression() ); // gzip压缩开启
 
 app.use( bodyParser.json() ); // 收到的如何请求转为json格式
 app.use( bodyParser.urlencoded({ extended: true }) ); // 处理url编码
-
+app.use( enforce.HTTPS({ trustProtoHeader: true }) ); // 信任协议标头变为true,就是在heroku中强制https开启( 等待笔记 )
 app.use( cors() ); // 处理跨源请求( 跨服务器请求 )
 
 
@@ -44,6 +45,12 @@ if( process.env.NODE_ENV === 'production' ){
 app.listen(port, (error) =>{
     if(error) throw error; // throw创建错误,返回错误信息
     console.log( '端口正常' + port );
+});
+
+// 配置PWA: node配置service-worker.js( 等待笔记 )
+    // a) service-worker.js来自craect-react-app内部
+app.get('/service-worker.js', ( req, res ) => {
+    res.sendFile(path.resolve(__dirname, '..', 'build', 'service-worker.js'));
 });
 
 
