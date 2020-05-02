@@ -1,0 +1,36 @@
+service cloud.firestore { // 必写
+  match /databases/{database}/documents { // 必写
+  
+  	// 0. 当前使用规则
+    //		a) match: 指定目标
+    //				0. match /xxx/{xxxId}: {xxxId}为获取合集中文档ID
+    //				1. match /{document=**}: {document=**}代表为全局操控
+    //		b) allow：允许规则
+    //				0. read: 允许读取
+    //				1. write: 允许随意写入
+    //						a) write相当于create,update
+    //				2. get: 只允许获取指定文档( 通常用于获取用户个人信息 )
+    //				3. list: 允许获取合集，但不允许获取指定文档
+    //				4. create: 允许创建文档/合集
+    //				5. update: 允许更新文档
+    //    c) 条件规则:
+    //    		0. request.auth: 用户验证
+    //    				a) request.auth.uid：获取用户验证得到的uid 
+    //			  1. 实战: 如下方
+    			  
+    // users合集: 验证用户通过，才被允许读取指定userId内容
+    match /users/{userId} {
+    	allow get, write: if request.auth != null && request.auth.uid == userId;
+    }
+    // collections: 允许任何人获取数据，但只有通过用户验证，并且为指定ID时才允许修改合集
+    match /collections/{collection} {
+    	allow read;
+      allow write: if request.auth != null && request.auth.uid == "CEKCLttQv4Y6lYiVWg5XMaDrgD93";
+    }
+    
+    // 1. 其它规则解析
+    // match /{document=**} {
+    //  	allow read, write: if request.time < timestamp.date(2021, 1, 10);
+    // }
+  }
+}

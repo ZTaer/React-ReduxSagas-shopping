@@ -160,3 +160,13 @@ export const getCurrentUser = () => {
         auth.onAuthStateChanged( userAuth => resolve(userAuth), reject );
     } );
 }
+
+
+export const getUserCartRef = async userId => {
+  const cartsRef = firestore.doc(`/users/${userId}`); // 文档路径
+  const snapShot = await cartsRef.get(); // 目的是exists参数，验证是否在数据库中存在
+  if( snapShot.exists ){
+      return cartsRef;
+  }
+  return null;
+};

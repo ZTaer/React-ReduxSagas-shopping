@@ -4,6 +4,7 @@ import { takeLatest,put,all,call } from 'redux-saga/effects';
 import { UserActionTypes } from './user.types';
 import { auth,googleProvider,createUserProfileDocument,getCurrentUser } from '../../firebase/firebase.config';
 import { signInSuccess,signInFailure,signOutSuccess,signOutFailure,signUpSuccess,signUpFailure } from './user.actions';
+import { getCartItemStart } from '../cart/cart.actions';
 
 // 加工处理获取的账户信息
 export function* unsubscribeFromAuth( user ){
@@ -13,6 +14,7 @@ export function* unsubscribeFromAuth( user ){
         yield put( 
             signInSuccess({ id: userRefSnapshot.id, ...userRefSnapshot.data() }) 
         );
+        yield put( getCartItemStart({ ...userRefSnapshot.data() }) );
     }
     catch(error){
         yield put( signInFailure(error) );
