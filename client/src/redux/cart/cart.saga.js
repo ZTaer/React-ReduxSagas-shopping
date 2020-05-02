@@ -29,8 +29,8 @@ export function* getCartItemStart(data) {
 
 export function* pushCartItemStart(){
     const currentUser = yield select( selectUserCurrentUser );
-    yield put( pushCartItemStartAction() );
     yield delay(3000); // 防止高频率访问服务器
+    yield put( pushCartItemStartAction() );
     if( currentUser ){ // 保证只有用户登陆才联系服务器
         try{
             const cartRef = yield getUserCartRef(currentUser.id); // 获取对应ref，方便操控数据
@@ -42,6 +42,9 @@ export function* pushCartItemStart(){
         }catch(err){
           yield put( pushCartItemFailure(err) );
         }
+    }
+    else{
+        yield put( pushCartItemFailure("未登陆!") );
     }
 }
 

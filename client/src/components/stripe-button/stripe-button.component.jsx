@@ -6,15 +6,16 @@
 
 import React from 'react';
 import { StripeBtn } from './stripe-button.styles';
+import { withRouter } from 'react-router-dom';
 
 import StripeCheckout from 'react-stripe-checkout';
 import { connect } from 'react-redux';
 import { createStructuredSelector } from 'reselect';
-import { selectUserEmail, selectUserImg } from '../../redux/user/user.selectors';
+import { selectUserEmail, selectUserImg, selectUserCurrentUser } from '../../redux/user/user.selectors';
 import axios from 'axios';
 import { clearCartItem } from '../../redux/cart/cart.actions';
 
-const StripeButton = ({ price, userEmail, userImg, clearCartItems }) => {
+const StripeButton = ({ price, userEmail, userImg, clearCartItems, history, currentUser }) => {
     const priceForStripe = price * 100; // 因为默认单位为美分
     const publishableKey = 'pk_test_119uiR5NTtcknALVrdLEfQPm00IylDmstZ';
 
@@ -39,7 +40,6 @@ const StripeButton = ({ price, userEmail, userImg, clearCartItems }) => {
             alert('支付失败: 请检查网络,以及卡号是否正确( 注意: 因后端架构在heroku所以国内用户需翻墙 )'); 
         })
     }
-
     return (
         <StripeCheckout
             image={userImg} // logo/头像
@@ -60,7 +60,7 @@ const StripeButton = ({ price, userEmail, userImg, clearCartItems }) => {
             alipay={true} // 是否开启支付宝付款(default false)
             token={onToken} // 提交后的回调函数
         >
-            <StripeBtn>
+            <StripeBtn onClick={ ()=> currentUser ? null : history.push("/sign") } >
                 立即支付
             </StripeBtn>
         </StripeCheckout>
@@ -70,10 +70,11 @@ const StripeButton = ({ price, userEmail, userImg, clearCartItems }) => {
 const mapStateToProps = createStructuredSelector({
     userEmail: selectUserEmail,
     userImg: selectUserImg,
+    currentUser: selectUserCurrentUser,
 });
 
 const mapDispatchToProps = dispatch => ({
     clearCartItems: ()=>dispatch(clearCartItem()),
 });
 
-export default connect(mapStateToProps,mapDispatchToProps)(StripeButton) ;
+export default withRouter(connect(mapStateToProps,mapDispatchToProps)(StripeButton));
