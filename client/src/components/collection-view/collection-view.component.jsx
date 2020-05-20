@@ -4,7 +4,7 @@ import { CollectionPreviewStyledContainer, LinkStyled, Preview } from './collect
 
 import CollectionItem from "../collection-item/collection-item.component";
 
-const CollectionView = ( {title,items,match} ) => {
+export const CollectionView = ( {title,items,match} ) => {
 
     const routeUrl = encodeURI(`${match.url}/${title.toLowerCase()}`) ;
     return (

@@ -6,7 +6,8 @@ import { toggleCartHidden } from '../../redux/cart/cart.actions';
 
 import { selectCartItemsCount } from '../../redux/cart/cart.selectors';
 
-const CartIcon = ({ toggleCartHidden,itemCount }) => {
+// 仅导出JSX部分，用于测试( 等待笔记 )
+export const CartIcon = ({ toggleCartHidden,itemCount }) => {
     return(
         <CartIconStyledContainer onClick={toggleCartHidden} >
             <CartIconSvgStyled />

@@ -6,7 +6,7 @@ import { selectCollectionShopArray } from '../../redux/shop/shop.selectors';
 
 import CollectionView from "../../components/collection-view/collection-view.component";
 
-const CollectionOverview  = ({ collectionShop }) => {
+export const CollectionOverview  = ({ collectionShop }) => {
     return(
         <div className="collection-overview">
             {

@@ -1,0 +1,7 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`购物车图标  Cart-icon Snapshot  1`] = `ShallowWrapper {}`;
+
+exports[`购物车图标 test 1`] = `ShallowWrapper {}`;
+
+exports[`购物车图标 快照备份 1`] = `undefined`;

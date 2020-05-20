@@ -1,0 +1,3 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`测试结算页面单个商品显示 CheckoutItem Snapshot 1`] = `ShallowWrapper {}`;

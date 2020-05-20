@@ -14,6 +14,7 @@ export const CartDropdownStyledContainer = styled.div`
     right: 40px;
     z-index: 5;
 `;
+CartDropdownStyledContainer.displayName = 'CartDropdownStyledContainer'; // 使wrapper.find()可以索引组件,进而对组件测试模拟( 等待笔记 )
 
 export const CartItems = styled.div`
     width:100%;
@@ -24,13 +25,16 @@ export const CartItems = styled.div`
     overflow-y: auto;
     overflow-x: hidden;
 `;
+CartItems.displayName = 'CartItems';
 
 export const CartItemsAlt = styled.span`
     margin:auto;
     font-size: 1rem;
     letter-spacing: 3px;
 `;
+CartItemsAlt.displayName = 'CartItemsAlt';
 
 export const CustomButtonExpStyled = styled( CustomButtonExp )`
     margin-top: auto;
 `;
+CustomButtonExpStyled.displayName = 'CustomButtonExpStyled';

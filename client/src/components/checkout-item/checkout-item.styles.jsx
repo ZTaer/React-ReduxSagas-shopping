@@ -10,6 +10,8 @@ export const CheckoutItemStyledContainer = styled.div`
   align-items: center;
 `;
 
+CheckoutItemStyledContainer.displayName = "CheckoutItemStyledContainer";
+
 export const ImageContainer = styled.div`
     width: 23%;
     padding-right: 15px;
@@ -21,15 +23,21 @@ export const ImageContainer = styled.div`
     }
 `;
 
+ImageContainer.displayName = "ImageContainer";
+
 export const SpanStyled = styled.span`
     width:23%;
 `;
+
+SpanStyled.displayName = "SpanStyled";
 
 // styled( 标签 )也可以继承其它styled标签的属性( 完成笔记 )
 export const Quantity = styled(SpanStyled)`
     padding-left: 20px;
     display: flex;
 `;
+
+Quantity.displayName = "Quantity";
 
 export const Arrow = styled.div`
     margin:0 0.3rem;
@@ -43,7 +51,11 @@ export const Arrow = styled.div`
     user-select:none;
 `;
 
+Arrow.displayName = "Arrow";
+
 export const RemoveButton = styled.span`
     padding-left: 12px;
     cursor: pointer;
 `;
+
+RemoveButton.displayName = "RemoveButton";

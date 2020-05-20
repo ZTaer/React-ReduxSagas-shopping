@@ -1,0 +1,3 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[` 测试单个商品显示  CollectionView Snapshot 1`] = `ShallowWrapper {}`;

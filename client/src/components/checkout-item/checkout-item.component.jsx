@@ -4,7 +4,7 @@ import { CheckoutItemStyledContainer, ImageContainer, SpanStyled, Quantity, Arro
 import { connect } from 'react-redux';
 import { deleteCartItem, addCartItem, lowerCartItem } from '../../redux/cart/cart.actions';
 
-const CheckoutItem = ({ cartItem, deleteCartItem, addCartItem, lowerCartItem }) =>{
+export const CheckoutItem = ({ cartItem, deleteCartItem, addCartItem, lowerCartItem }) =>{
     const { name, imageUrl, price, quantity } = cartItem;
     return(
         <CheckoutItemStyledContainer>

@@ -23,6 +23,7 @@ export const CollectionItemStyledContainer = styled.div`
         }
     }  
 `;
+CollectionItemStyledContainer.displayName = "CollectionItemStyledContainer";
 
 // 设定背景图片
 const getBackgroundImg = props => {
@@ -32,6 +33,7 @@ const getBackgroundImg = props => {
         `;
     }
 }
+getBackgroundImg.displayName = "getBackgroundImg";
 
 export const Image = styled.div`
     width: 100%;
@@ -43,6 +45,7 @@ export const Image = styled.div`
     ${xy_items('center','flex-end')}
     ${getBackgroundImg}
 `;
+Image.displayName = "Image";
 
 export const CollectionFooter = styled.div`
     width: 100%;
@@ -52,11 +55,15 @@ export const CollectionFooter = styled.div`
     font-size: 18px;
 `;
 
+CollectionFooter.displayName = "CollectionFooter";
+
 export const Name = styled.span`
     width: 90%;
     margin-bottom: 15px;
 `;
+Name.displayName = "Name";
 
 export const Price = styled.span`
     width: 10%;
 `;
+Price.displayName = "Price";

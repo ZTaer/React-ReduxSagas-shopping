@@ -10,11 +10,14 @@ export const CartIconStyledContainer = styled.div`
     justify-content: center;
     cursor: pointer;
 `;
+CartIconStyledContainer.displayName = "CartIconStyledContainer";
 
 export const CartIconSvgStyled = styled(CartIconSvg)`
     width: 24px;
     height: 24px;
 `;
+
+CartIconSvgStyled.displayName = "CartIconSvgStyled";
 
 export const ItemCount = styled.span`
     position: absolute;
@@ -22,3 +25,5 @@ export const ItemCount = styled.span`
     font-weight: bold;
     bottom: 12px;
 `;
+
+ItemCount.displayName = "ItemCount";
