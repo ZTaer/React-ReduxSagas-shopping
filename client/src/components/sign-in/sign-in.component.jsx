@@ -7,7 +7,7 @@ import CustomButtonExp from "../custom-button-exp/custom-button-exp.component";
 import { connect } from 'react-redux';
 import { googleSignInStart,emailSignInStart } from '../../redux/user/user.actions';
 
-const SignIn = ( { googleSignInStart, emailSignInStart } ) => {
+export const SignIn = ( { googleSignInStart, emailSignInStart } ) => {
     // hooks下useState实战( 完成笔记 )
     const [ userState, setUserState ] = useState( { email: '', password: '' } );
 

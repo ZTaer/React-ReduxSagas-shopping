@@ -17,7 +17,7 @@ describe( '购物车图标',()=>{
         wrapper = shallow(<CartIcon {...mockProps} />);
     } );
 
-    // 快照备份时，注释使用英文名称防止出现莫名其妙的错误( 等待笔记 )
+    // 快照备份时，注释使用英文名称防止出现莫名其妙的错误( 完成笔记 )
     it(" Cart-icon Snapshot ",()=>{
         expect(wrapper).toMatchSnapshot();
     });
@@ -28,7 +28,7 @@ describe( '购物车图标',()=>{
     });
 
     it(" 测试渲染数字是否正确 ",()=>{
-        const num = parseInt(wrapper.find("ItemCount").text()); // text()获得组件中嵌套的内容( 等待笔记 )
+        const num = parseInt(wrapper.find("ItemCount").text()); // text()获得组件中嵌套的内容( 完成笔记 )
         expect( num ).toEqual(0);
     });
 

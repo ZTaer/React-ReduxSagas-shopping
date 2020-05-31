@@ -1,0 +1,5 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[` 测试主页目录显示  ErrorBoundary Snapshot 1`] = `ShallowWrapper {}`;
+
+exports[` 测试错误组件  ErrorBoundary Snapshot 1`] = `ShallowWrapper {}`;

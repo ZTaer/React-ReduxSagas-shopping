@@ -9,7 +9,7 @@ import { MenuItemStyledContainer, Content, Title, Subtitle, BackgroundImage } fr
  * 1. 输出: export default withRouter( 组件名 );
  * 2. 使用: 路由属性名称 -> 直接传递给组件, 如下实战
  */
-const MenuItem = ({ title,imageUrl,size,linkUrl,history,match }) => (
+export const MenuItem = ({ title,imageUrl,size,linkUrl,history,match }) => (
 
     <MenuItemStyledContainer 
         onClick={ ()=>history.push( `${match.url}${linkUrl}` ) } 

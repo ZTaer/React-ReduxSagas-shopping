@@ -3,7 +3,7 @@ import { CartDropdownStyledContainer, CartItems, CartItemsAlt, CustomButtonExpSt
 
 import CartItem from '../cart-item/cart-item.component';
 
-const CartDropdown = ({ cartItems, history, toggleCartHidden }) => {
+export const CartDropdown = ({ cartItems, history, toggleCartHidden }) => {
     return (
         <CartDropdownStyledContainer>
             <CartItems>

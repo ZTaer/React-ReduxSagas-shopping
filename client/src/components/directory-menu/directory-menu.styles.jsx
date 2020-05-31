@@ -6,3 +6,5 @@ export const DirectoryMenuStyledContainer = styled.div`
     flex-wrap: wrap;
     justify-content: space-between;
 `;
+
+DirectoryMenuStyledContainer.displayName = "DirectoryMenuStyledContainer";

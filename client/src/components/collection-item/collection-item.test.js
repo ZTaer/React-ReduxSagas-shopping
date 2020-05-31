@@ -29,7 +29,7 @@ describe("测试单个商品显示",()=>{
     });
 
     it(" 测试图片链接是否到位 ",()=>{
-        expect( wrapper.find("Image").prop('backgroundImg') ).toEqual( mockItem.imageUrl ); // prop(): 获取组件传入的值( 等待笔记 )
+        expect( wrapper.find("Image").prop('backgroundImg') ).toEqual( mockItem.imageUrl ); // prop(): 获取组件传入的值( 完成笔记 )
     });
 
 });

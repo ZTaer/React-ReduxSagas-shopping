@@ -56,6 +56,7 @@ export const FromInputStyled = styled.input`
         ${shrinkLabel};
     }
 `;
+FromInputStyled.displayName = "FromInputStyled";
 
 // 表单如果有数值则使用指定css
 const inputLength = props => {
@@ -78,3 +79,4 @@ export const FormInputLabel = styled.label`
 
     ${inputLength};
 `;
+FormInputLabel.displayName = "FormInputLabel";

@@ -30,7 +30,7 @@ describe("测试结算页面单个商品显示",()=>{
     });
 
     it("模拟单击添加产品数量测试",()=>{
-        wrapper.find("Quantity").childAt(0).simulate('click'); // childAt( number ): 通过子标签排位数，从上往下，从0~n，抓取子标签( 等待笔记 )
+        wrapper.find("Quantity").childAt(0).simulate('click'); // childAt( number ): 通过子标签排位数，从上往下，从0~n，抓取子标签( 完成笔记 )
         expect(mockProps.lowerCartItem).toHaveBeenCalled();
     });
 

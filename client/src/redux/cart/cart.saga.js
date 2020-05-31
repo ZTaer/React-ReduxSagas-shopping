@@ -29,7 +29,7 @@ export function* getCartItemStart(data) {
 
 export function* pushCartItemStart(){
     const currentUser = yield select( selectUserCurrentUser );
-    yield delay(3000); // 防止高频率访问服务器
+    yield delay(2000); // 防止高频率访问服务器
     yield put( pushCartItemStartAction() );
     if( currentUser ){ // 保证只有用户登陆才联系服务器
         try{
@@ -75,7 +75,7 @@ export function* cartSaga() {
 }
 
 /**
- * 购物车逻辑( 等待笔记 )
+ * 购物车逻辑( 完成笔记 )
  */
 // 0. 用户登陆
 // 1. 获取用户，购物车数据，添加到本地 - ( 用户登陆只执行一次 )

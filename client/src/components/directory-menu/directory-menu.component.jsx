@@ -6,7 +6,7 @@ import { connect } from 'react-redux';
 import { createStructuredSelector } from 'reselect';
 import { selectSections } from '../../redux/dire/dire.selectors';
 
-const DirectoryMenu = ( { sections } ) => {
+export const DirectoryMenu = ( { sections } ) => {
   return(
     <DirectoryMenuStyledContainer>
         {

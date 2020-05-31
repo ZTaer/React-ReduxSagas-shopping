@@ -36,11 +36,12 @@ const StripeButton = ({ price, userEmail, userImg, clearCartItems, history, curr
             clearCartItems();
         })
         .catch( err => {
-            console.log('支付失败: ',JSON.parse(err));
+            console.error('支付失败: ',err);
             alert('支付失败: 请检查网络,以及卡号是否正确( 注意: 因后端架构在heroku所以国内用户需翻墙 )'); 
-        })
+        });
     }
-    return (
+    return currentUser ? 
+    (
         <StripeCheckout
             image={userImg} // logo/头像
             name="结算商品" // 弹窗标题
@@ -60,11 +61,14 @@ const StripeButton = ({ price, userEmail, userImg, clearCartItems, history, curr
             alipay={true} // 是否开启支付宝付款(default false)
             token={onToken} // 提交后的回调函数
         >
-            <StripeBtn onClick={ ()=> currentUser ? null : history.push("/sign") } >
+            <StripeBtn>
                 立即支付
             </StripeBtn>
         </StripeCheckout>
-    );
+    ) : 
+    <StripeBtn onClick={ ()=> history.push("/sign") } >
+        立即支付
+    </StripeBtn>
 };
 
 const mapStateToProps = createStructuredSelector({

@@ -1,5 +1,4 @@
 import styled,{css} from 'styled-components';
-
 export const MenuItemStyledContainer = styled.div`
     min-width: 30%;
     height: 240px;
@@ -38,7 +37,7 @@ export const MenuItemStyledContainer = styled.div`
         }
     }
 `;
-
+MenuItemStyledContainer.displayName = "MenuItemStyledContainer";
 const backgroundImg = props => {
     if( props.backgroundImage ){
         return css`
@@ -55,6 +54,7 @@ export const BackgroundImage = styled.div`
     background-position:center;
     ${ backgroundImg }
 `;
+BackgroundImage.displayName = "BackgroundImage";
 
 export const Content = styled.div`
     height: 90px;
@@ -68,6 +68,7 @@ export const Content = styled.div`
     background-color:#ddd ;
     opacity: 0.9;
 `;
+Content.displayName = "Content";
 
 export const Title = styled.h1`
     font-weight: bold;
@@ -75,8 +76,10 @@ export const Title = styled.h1`
     font-size: 22px;
     color: #4a4a4a;
 `;
+Title.displayName = "Title";
 
 export const Subtitle = styled.span`
     font-weight: lighter;
     font-size: 16px;
 `;
+Subtitle.displayName = "Subtitle";

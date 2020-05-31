@@ -1,0 +1,7 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[` 测试公共按钮  CustomButton Snapshot 1`] = `ShallowWrapper {}`;
+
+exports[` 测试单个商品显示  CollectionView Snapshot 1`] = `undefined`;
+
+exports[` 测试单个商品显示  CustomButton Snapshot 1`] = `ShallowWrapper {}`;

@@ -23,54 +23,44 @@ import { handleOpenModal } from '../../redux/modal/modal.actions';
     // 4. SVG的优势: svg图标，为矢量图，并且很小
 import { ReactComponent as Logo } from "../../assets/crown.svg";
 
-class Header extends React.Component {
-
-    componentDidMount(){
-       // this.props.handleOpenModal("因暂且未掌握后端技术特使用GoogleFirebase代替后端存储验证,请阁下'翻墙'才能正常浏览此站点");
-    }
-
-    render(){
-        const {currentUser, hidden, signOutStart} = this.props;
-        return(
-            <HeaderDiv>
-
-                <CustomModal/>
-
-                <LogoContainer  to="/" >
-                    <Logo className="logo" />
-                </LogoContainer>
-                <OptionsDiv>
-                    <OptionLink to="/" >
-                        主页
-                    </OptionLink> 
-                    <OptionLink to="/shop" >
-                        产品
-                    </OptionLink>
-                    <OptionLink to="/tel" >
-                        联系
-                    </OptionLink>
-                    {
-                        currentUser 
-                        ? 
-                        // styled-components使用as可进行标签类型转换( 完成笔记 )
-                            // a) 使用方式: <Xxxx as={'div'} ><Xxxx/> --> <div></div>
-                            // b) as可以将组件转换为自定义标签,也可以转换为默认HMTL标签
-                        ( <OptionLink as='div' to='' onClick={signOutStart} >退出</OptionLink> ) // 用户退出登陆( 完成笔记 )
-                        : 
-                        ( <OptionLink className="option" to="/sign" >注册/登陆</OptionLink> )
-                    }
-                    <OptionLink as='div' to='' >
-                        <CartIcon/>
-                    </OptionLink>
-                </OptionsDiv>
+export const Header = props => {
+    const {currentUser, hidden, signOutStart} = props;
+    return(
+        <HeaderDiv>
+            <CustomModal/>
+            <LogoContainer  to="/" >
+                <Logo className="logo" />
+            </LogoContainer>
+            <OptionsDiv>
+                <OptionLink to="/" >
+                    主页
+                </OptionLink> 
+                <OptionLink to="/shop" >
+                    产品
+                </OptionLink>
+                <OptionLink to="/tel" >
+                    联系
+                </OptionLink>
                 {
-                    hidden ? <CartDropdown  /> : null
+                    currentUser 
+                    ? 
+                    // styled-components使用as可进行标签类型转换( 完成笔记 )
+                        // a) 使用方式: <Xxxx as={'div'} ><Xxxx/> --> <div></div>
+                        // b) as可以将组件转换为自定义标签,也可以转换为默认HMTL标签
+                    ( <OptionLink as='div' to='' onClick={signOutStart} >退出</OptionLink> ) // 用户退出登陆( 完成笔记 )
+                    : 
+                    ( <OptionLink className="option" to="/sign" >注册/登陆</OptionLink> )
                 }
-            </HeaderDiv>
-        );
-    }
+                <OptionLink as='div' to='' >
+                    <CartIcon/>
+                </OptionLink>
+            </OptionsDiv>
+            {
+                hidden ? <CartDropdown  /> : null
+            }
+        </HeaderDiv>
+    );
 }
-
 
 // React-Redux: connect()函数,用于交互redux数据( 完成笔记 )
     // 0. connect( mapStateToProps, mapDispatchToProps );

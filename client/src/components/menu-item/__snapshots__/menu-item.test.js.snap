@@ -1,0 +1,3 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[` 测试菜单列表显示  MenuItemSnapshot 1`] = `ShallowWrapper {}`;

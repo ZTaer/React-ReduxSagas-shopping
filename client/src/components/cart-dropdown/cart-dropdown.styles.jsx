@@ -14,7 +14,7 @@ export const CartDropdownStyledContainer = styled.div`
     right: 40px;
     z-index: 5;
 `;
-CartDropdownStyledContainer.displayName = 'CartDropdownStyledContainer'; // 使wrapper.find()可以索引组件,进而对组件测试模拟( 等待笔记 )
+CartDropdownStyledContainer.displayName = 'CartDropdownStyledContainer'; // 使wrapper.find()可以索引组件,进而对组件测试模拟( 完成笔记 )
 
 export const CartItems = styled.div`
     width:100%;

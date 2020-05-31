@@ -8,6 +8,7 @@ export const ErrorImageOverlay = styled.div`
   justify-content: center;
   align-items: center;
 `;
+ErrorImageOverlay.displayName = "ErrorImageOverlay";
 
 export const ErrorImageContainer = styled.div`
   display: inline-block;
